@@ -1,0 +1,48 @@
+:volu world BOX 5000*m 5000*m 16000*m G4_Galactic
+
+:rotm r000 0 0 0
+
+:solid spessore BOX 5000*m 5000*m 2000*m
+
+:MIXT Aria_40km 0.000003851 1 G4_AIR 1
+:MIXT Aria_36km 0.000007034 1 G4_AIR 1
+:MIXT Aria_32km 0.000013225 1 G4_AIR 1
+:MIXT Aria_28km 0.000024599 1 G4_AIR 1
+:MIXT Aria_24km 0.000046267 1 G4_AIR 1
+:MIXT Aria_20km 0.000088035 1 G4_AIR 1
+:MIXT Aria_16km 0.000165420 1 G4_AIR 1
+:MIXT Aria_12km 0.000310828 1 G4_AIR 1
+:MIXT Aria_08km 0.000525168 1 G4_AIR 1
+:MIXT Aria_04km 0.000819129 1 G4_AIR 1
+:MIXT Aria_00km 0.001225000 1 G4_AIR 1
+
+:volu 40km(S) spessore Aria_40km
+:volu 36km(S) spessore Aria_36km
+:volu 32km(S) spessore Aria_32km
+:volu 28km(S) spessore Aria_28km
+:volu 24km(S) spessore Aria_24km
+:volu 20km(S) spessore Aria_20km
+:volu 16km(S) spessore Aria_16km
+:volu 12km(S) spessore Aria_12km
+:volu 08km(S) spessore Aria_08km
+:volu 04km(S) spessore Aria_04km
+:volu 00km(S) spessore Aria_00km
+
+:place 12km(S) 2 world r000 0*m 0*m (2000-16000)*m
+:color 12km(S) 1 1 1
+:place 16km(S) 2 world r000 0*m 0*m (6000-16000)*m
+:color 16km(S) 1 1 1
+:place 20km(S) 2 world r000 0*m 0*m (10000-16000)*m
+:color 20km(S) 1 1 1
+:place 24km(S) 2 world r000 0*m 0*m (14000-16000)*m
+:color 24km(S) 1 1 1
+:place 28km(S) 2 world r000 0*m 0*m (18000-16000)*m
+:color 28km(S) 1 1 1
+:place 32km(S) 2 world r000 0*m 0*m (22000-16000)*m
+:color 32km(S) 1 1 1
+:place 36km(S) 2 world r000 0*m 0*m (26000-16000)*m
+:color 36km(S) 1 1 1
+:place 40km(S) 2 world r000 0*m 0*m (30000-16000)*m
+:color 40km(S) 1 1 1
+
+:vis world OFF
