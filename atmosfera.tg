@@ -1,0 +1,294 @@
+:volu world BOX 10*m 10*m 30*m G4_AIR
+:P POSZ 10*m //posizione del detector
+:P LARG 10*m //larghezza dello strato di atmofera
+:P LUNG 1*m //lunghezza strato atmosfera
+
+:ROTM R0 0. 0. 0.  // unit matrix 
+
+//definisco l'aria
+:ELEM Oxygen O 8 16.
+:ELEM Nitrogen N 7 14.
+:MIXT Air1 1.884E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air2 2.203E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air3 2.577E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+
+//definisco l'aria
+:MIXT Air4 3.018E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+
+//definisco l'aria
+:MIXT Air5 3.537E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air6 4.147E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air7 4.867E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air8 5.715E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air9 6.715E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air10 7.895E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air11 9.289E-02 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air12 1.093E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air13 1.287E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air14 1.513E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air15 1.775E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air16 2.075E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air17 2.415E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air18 2.797E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air19 3.222E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria2
+:MIXT Air20 3.690E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air21 4.201E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air22 4.753E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air23 5.345E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+//definisco l'aria
+:MIXT Air24 5.978E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+
+
+:MIXT Air25 6.654E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+
+:MIXT Air26 7.379E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+
+:MIXT Air27 8.161E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+:MIXT Air28 9.015E-01 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+
+:MIXT Air29 1.103 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+
+:MIXT Air30 1.227 2
+      Nitrogen	0.75
+      Oxygen	0.25
+
+
+//definisco la lastra dello scintillatore
+:volu "lastra" BOX 0.5*m 0.5*m 0.1*m G4_SODIUM_IODIDE
+:place "lastra" 1 world R0 0. 0. $POSZ
+
+//definisco gli strati di atmosfera
+:volu strato1 BOX $LARG $LARG $LUNG Air1
+:place strato1 1 world R0 0. 0. 29*m
+
+//definisco gli strati di atmosfera
+:volu strato2 BOX $LARG $LARG $LUNG Air2
+:place strato2 1 world R0 0. 0. 28*m
+
+//definisco gli strati di atmosfera
+:volu strato3 BOX $LARG $LARG $LUNG Air3
+:place strato3 1 world R0 0. 0. 27*m
+
+//definisco gli strati di atmosfera
+:volu strato4 BOX $LARG $LARG $LUNG Air4
+:place strato4 1 world R0 0. 0. 26*m
+
+//definisco gli strati di atmosfera
+:volu strato5 BOX $LARG $LARG $LUNG Air5
+:place strato5 1 world R0 0. 0. 25*m
+
+//definisco gli strati di atmosfera
+:volu strato6 BOX $LARG $LARG $LUNG Air6
+:place strato6 1 world R0 0. 0. 24*m
+
+//definisco gli strati di atmosfera
+:volu strato7 BOX $LARG $LARG $LUNG Air7
+:place strato7 1 world R0 0. 0. 23*m
+
+//definisco gli strati di atmosfera
+:volu strato8 BOX $LARG $LARG $LUNG Air8
+:place strato8 1 world R0 0. 0. 22*m
+
+//definisco gli strati di atmosfera
+:volu strato9 BOX $LARG $LARG $LUNG Air9
+:place strato9 1 world R0 0. 0. 21*m
+
+//definisco gli strati di atmosfera
+:volu strato10 BOX $LARG $LARG $LUNG Air10
+:place strato10 1 world R0 0. 0. 20*m
+
+//definisco gli strati di atmosfera
+:volu strato11 BOX $LARG $LARG $LUNG Air11
+:place strato11 1 world R0 0. 0. 19*m
+
+//definisco gli strati di atmosfera
+:volu strato12 BOX $LARG $LARG $LUNG Air12
+:place strato12 1 world R0 0. 0. 18*m
+
+//definisco gli strati di atmosfera
+:volu strato13 BOX $LARG $LARG $LUNG Air13
+:place strato13 1 world R0 0. 0. 17*m
+
+//definisco gli strati di atmosfera
+:volu strato14 BOX $LARG $LARG $LUNG Air14
+:place strato14 1 world R0 0. 0. 16*m
+
+//definisco gli strati di atmosfera
+:volu strato15 BOX $LARG $LARG $LUNG Air15
+:place strato15 1 world R0 0. 0. 15*m
+
+//definisco gli strati di atmosfera
+:volu strato16 BOX $LARG $LARG $LUNG Air16
+:place strato16 1 world R0 0. 0. 14*m
+
+//definisco gli strati di atmosfera
+:volu strato17 BOX $LARG $LARG $LUNG Air17
+:place strato17 1 world R0 0. 0. 13*m
+
+//definisco gli strati di atmosfera
+:volu strato18 BOX $LARG $LARG $LUNG Air18
+:place strato18 1 world R0 0. 0. 12*m
+
+//definisco gli strati di atmosfera
+:volu strato19 BOX $LARG $LARG $LUNG Air19
+:place strato19 1 world R0 0. 0. 11*m
+
+//definisco gli strati di atmosfera
+:volu strato20 BOX $LARG $LARG $LUNG Air20
+:place strato20 1 world R0 0. 0. 10*m
+
+//definisco gli strati di atmosfera
+:volu strato21 BOX $LARG $LARG $LUNG Air21
+:place strato21 1 world R0 0. 0. 9*m
+
+//definisco gli strati di atmosfera
+:volu strato22 BOX $LARG $LARG $LUNG Air22
+:place strato22 1 world R0 0. 0. 8*m
+
+//definisco gli strati di atmosfera
+:volu strato23 BOX $LARG $LARG $LUNG Air23
+:place strato23 1 world R0 0. 0. 7*m
+
+//definisco gli strati di atmosfera
+:volu strato24 BOX $LARG $LARG $LUNG Air24
+:place strato24 1 world R0 0. 0. 6*m
+
+//definisco gli strati di atmosfera
+:volu strato25 BOX $LARG $LARG $LUNG Air25
+:place strato25 1 world R0 0. 0. 5*m
+
+//definisco gli strati di atmosfera
+:volu strato26 BOX $LARG $LARG $LUNG Air26
+:place strato26 1 world R0 0. 0. 4*m
+
+//definisco gli strati di atmosfera
+:volu strato27 BOX $LARG $LARG $LUNG Air27
+:place strato27 1 world R0 0. 0. 3*m
+
+//definisco gli strati di atmosfera
+:volu strato28 BOX $LARG $LARG $LUNG Air28
+:place strato28 1 world R0 0. 0. 2*m
+
+//definisco gli strati di atmosfera
+:volu strato29 BOX $LARG $LARG $LUNG Air29
+:place strato29 1 world R0 0. 0. 1*m
+
+//definisco gli strati di atmosfera
+:volu strato30 BOX $LARG $LARG $LUNG Air30
+:place strato30 1 world R0 0. 0. 0*m
+//visualizzazione tramite colori
+
+:vis "lastra" ON
+:vis  strato* ON
+:vis  world OFF
+:COLOUR "lastra" 0.1 0.5 0.5
+:COLOUR strato* 0.0 0.0 0.2 0
+
+
