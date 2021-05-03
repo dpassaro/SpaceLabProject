@@ -1,68 +1,124 @@
-\documentclass{article}
-\pdfpagewidth
-\paperwidth
-\pdfpageheight
-\paperheight
-\usepackage[italian]{babel}
-\usepackage{epsfig}
+\documentclass[twocolumn, a4paper]{article}
+
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{fancyhdr}
-\usepackage{amsmath,amssymb}
-\usepackage{amscd}
-\usepackage[toc,page]{appendix}
-\usepackage{graphicx,color,listings}
-\frenchspacing
-\usepackage[margin=10pt,font=footnotesize,labelfont=bf,labelsep=endash]{caption}
-\usepackage[tight]{subﬁgure} 
-\usepackage{cancel}
-\usepackage{float}
-\usepackage{sidecap}
-\usepackage{wrapfig}
-\usepackage{geometry}
-\usepackage{rotating}
-\geometry{a4paper, tmargin=3cm, bmargin=4cm, lmargin=2cm, rmargin=2cm}
-\usepackage{picture}
+\DeclareUnicodeCharacter{2212}{-}
+\usepackage[italian]{babel}
 
-\usepackage[utf8]{inputenc}
+\usepackage{physics}
 
-\title{\textbf{Misura del flusso di raggi cosmici e separazione delle componenti carica e neutra.}}
-\author{Adriano Del Vincio, Viola Floris, Daniele Passaro, Domenico Riccardi, Marco Riggirello
-\\
-Niccolò Torriti, Antoine Venturini}
+%%%%%%%%%%%%%%%%
+%%% BELLURIE %%%
+%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+%%% font %%%
+%%%%%%%%%%%%
+\usepackage{libertinus}
+\usepackage{libertinust1math} %AMS caricato in automatico
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+
+\usepackage{microtype}
+
+%%%%%%%%%%%%%%%%%%%%
+%%% frontespizio %%%
+%%%%%%%%%%%%%%%%%%%%
+\usepackage{titling}
+
+%titolo
+\pretitle{\begin{center}\scshape\sffamily\LARGE}
+\posttitle{\par\end{center}}
+%autore
+\preauthor{\begin{center}\large\scshape\sffamily\begin{tabular}[t]{c}}
+\postauthor{\end{tabular}\par\end{center}}
+%data
+\predate{\begin{center}\large\sffamily}
+\postdate{\par\end{center}}
+
+%%%%%%%%%%%%%%%%
+%%% sommario %%%
+%%%%%%%%%%%%%%%%
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\sffamily\large\scshape}
+\renewcommand{\abstracttextfont}{\normalsize}
+\setlength{\absleftindent}{6em}
+\setlength{\absrightindent}{6em}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% titoli e titoletti %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[sf, sc, medium, center, pagestyles]{titlesec}
+\renewpagestyle{plain}[\scshape\sffamily]{
+	\sethead{Proposta progetto \emph{Fly your experiment}}{}{SpaceLab, UniPi}
+	\setfoot{}{\thepage}{}
+}
+
+\pagestyle{plain}
+
+%%%%%%%%%%%%%
+%%% ALTRO %%%
+%%%%%%%%%%%%%
+%\usepackage{pgf}
+%\usepackage{rotating}
+\usepackage{enumitem}
+\setlist{leftmargin=*}
+\usepackage{caption, subcaption}
+\captionsetup{labelfont={sf, sc}, textfont=sf}
+%\captionsetup[sub]{skip=0.2em}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%% NUOVO AMBIENTE %%%
+%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{crewbio}[1]{\noindent\textbf{#1} ---}{\\}
+
+%%%
+%%%
+%%%
+
+\title{Misura del flusso di raggi cosmici e separazione delle componenti carica e neutra.}
+\author{Adriano Del Vincio \and Viola Floris \and Daniele Passaro \and Domenico Riccardi \and Marco Riggirello
+\and
+Niccolò Torriti \and Antoine Venturini}
 \date{7 Maggio 2021}
 
 \begin{document}
 \maketitle
-\begin{center}
-\textbf{\Large Presentazione del gruppo}
-\end{center}
+\section{Presentazione del gruppo}
 
-\section*{}
-\textbf{Adriano Del Vincio} - Laurea triennale in fisica e attualmente iscritto al corso di laurea magistrale in fisica medica. Il mio ruolo all'interno del gruppo è legato all'analisi dati ed ho contribuito a definire la misura proposta del flusso di neutroni in alta atmosfera ed il suo importante legame con la produzione di carbonio 14, impiegato nelle misure di datazione.Inoltre sono stato di supporto a Daniele Passaro nella realizzazione della simulazione dell'interazione di raggi cosmici con l'atmosfera,attraverso l'uso del programma \textit{GEANT4}. 
+\begin{crewbio}{Adriano Del Vincio}
+Laurea triennale in fisica e attualmente iscritto al corso di laurea magistrale in fisica medica. Il mio ruolo all'interno del gruppo è legato all'analisi dati ed ho contribuito a definire la misura proposta del flusso di neutroni in alta atmosfera ed il suo importante legame con la produzione di carbonio 14, impiegato nelle misure di datazione.Inoltre sono stato di supporto a Daniele Passaro nella realizzazione della simulazione dell'interazione di raggi cosmici con l'atmosfera,attraverso l'uso del programma \emph{GEANT4}. 
+\end{crewbio}
 
-\section*{}
-\textbf{Viola Floris} - Laureata in Fisica presso l'Università degli Studi di Perugia. Ho sviluppato una tesi triennale sulla misura dell'energia in Fisica delle Particelle mediante calorimetri, approfondendo l'esperimento NA62 al SPS (Cern). Attenta ai dettagli ed amante delle sfide, mi sono appassionata agli aspetti più sperimentali della fisica delle particelle visitando i tunnel del Cern. Attualmente frequento il Corso di Laurea Magistrale in Interazioni Fondamentali all'Università di Pisa, dove, grazie al corso di laboratorio, sto portando avanti misure sui raggi cosmici, sul decadimento del muone e sull'annichilazione del positrone. Do il mio contributo al progetto con l'esperienza acquisita proprio in queste misure.
+\begin{crewbio}{Viola Floris}
+Laureata in Fisica presso l'Università degli Studi di Perugia. Ho sviluppato una tesi triennale sulla misura dell'energia in Fisica delle Particelle mediante calorimetri, approfondendo l'esperimento NA62 al SPS (Cern). Attenta ai dettagli ed amante delle sfide, mi sono appassionata agli aspetti più sperimentali della fisica delle particelle visitando i tunnel del Cern. Attualmente frequento il Corso di Laurea Magistrale in Interazioni Fondamentali all'Università di Pisa, dove, grazie al corso di laboratorio, sto portando avanti misure sui raggi cosmici, sul decadimento del muone e sull'annichilazione del positrone. Do il mio contributo al progetto con l'esperienza acquisita proprio in queste misure.
+\end{crewbio}
 
-\section*{}
-\textbf{Daniele Passaro} - Sono uno studente iscritto al corso di laurea magistrale in Fisica presso l'Università di Pisa, curriculum di  "Interazioni Fondamentali". 
+\begin{crewbio}{Daniele Passaro}
+Sono uno studente iscritto al corso di laurea magistrale in Fisica presso l'Università di Pisa, curriculum di  "Interazioni Fondamentali". 
 Il mio percorso formativo è incentrato sulla fisica delle particelle, in particolare dando grande attenzione ai metodi sperimentali necessari per l'attività di ricerca in fisica delle alte energie. Riguardo l'attività sperimentale, ho acquisito esperienza seguendo un totale di 6 corsi di laboratorio: 5 durante il corso di laurea triennale in Fisica presso UniSa, incentrati su analisi dati, elettronica digitale e analogica, microelettronica, magnetismo e simulazioni numeriche; uno durante il corso di laurea magistrale, dedicato alla fisica delle interazioni fondamentali ed in particolare sui raggi cosmici.
+
 Nel progetto mi occupo delle simulazioni Monte Carlo, realizzate tramite il toolkit di simulazione avanzata GEANT4 (\textcopyright CERN), e collaboro alla caratterizzazione del modulo rivelatore \emph{micromegas} e della sua elettronica di lettura. 
+\end{crewbio}
 
-\section*{}
-\textbf{Domenico Riccardi} - Sono iscritto al corso di laurea magistrale in Fisica presso l'Università di Pisa, curriculum di "Interazioni Fondamentali". I miei interessi sono rivolti, principalmente, alla fisica sperimentale delle alte energie e all'analisi dei dati. L'attività sperimentale svolta nel corso della laurea triennale, frequentando tre laboratori, e in quella magistrale, con il laboratorio d'interazioni fondamentali, mi hanno permesso di approfondire aspetti e problematiche nell'ambito della realizzazione e dell'analisi dei risultati di esperimenti scientifici. La mia passione per la fisica delle alte energie, mi ha portato ad un lavoro di tesi triennale incentrato sullo studio dell'efficienza di ricostruzione dei muoni nel decadimento del mesone $B_c^+$ su simulazioni Monte Carlo prodotte dall'esperimento CMS ad LHC. Nell'esperimento concepito mi occupo dello studio dell'efficienza dell'apparato, che è una variabile fondamentale per le misure di flusso che si vogliono ricavare, e più in generale sulla sua caratterizzazione.
+\begin{crewbio}{Domenico Riccardi}
+Sono iscritto al corso di laurea magistrale in Fisica presso l'Università di Pisa, curriculum di "Interazioni Fondamentali". I miei interessi sono rivolti, principalmente, alla fisica sperimentale delle alte energie e all'analisi dei dati. L'attività sperimentale svolta nel corso della laurea triennale, frequentando tre laboratori, e in quella magistrale, con il laboratorio d'interazioni fondamentali, mi hanno permesso di approfondire aspetti e problematiche nell'ambito della realizzazione e dell'analisi dei risultati di esperimenti scientifici. La mia passione per la fisica delle alte energie, mi ha portato ad un lavoro di tesi triennale incentrato sullo studio dell'efficienza di ricostruzione dei muoni nel decadimento del mesone $B_c^+$ su simulazioni Monte Carlo prodotte dall'esperimento CMS ad LHC. Nell'esperimento concepito mi occupo dello studio dell'efficienza dell'apparato, che è una variabile fondamentale per le misure di flusso che si vogliono ricavare, e più in generale sulla sua caratterizzazione.
+\end{crewbio}
 
-\section*{}
-\textbf{Marco Riggirello} - Sono uno studente magistrale del dipartimento di Fisica dell'Università di Pisa iscritto al curriculum di \emph{Fisica delle Interazioni Fondamentali}. Per la laurea triennale, conseguita nel 2020, ho presentato una tesi sulla misura della violazione dell'universalità leptonica con l'esperimento CMS in cui ho effettuato un'analisi volta a ottimizzare la precisione della misura di $R(J/\psi)$. Sono molto interessato alle sfide sperimentali della fisica delle alte energie: durante il mio percorso triennale ho seguito numerosi corsi su argomenti di elettronica e analisi dati che sto approfondendo nella prosecuzione magistrale. 
+\begin{crewbio}{Marco Riggirello}
+Sono uno studente magistrale del dipartimento di Fisica dell'Università di Pisa iscritto al curriculum di \emph{Fisica delle Interazioni Fondamentali}. Per la laurea triennale, conseguita nel 2020, ho presentato una tesi sulla misura della violazione dell'universalità leptonica con l'esperimento CMS in cui ho effettuato un'analisi volta a ottimizzare la precisione della misura di $R(J/\psi)$. Sono molto interessato alle sfide sperimentali della fisica delle alte energie: durante il mio percorso triennale ho seguito numerosi corsi su argomenti di elettronica e analisi dati che sto approfondendo nella prosecuzione magistrale. 
 
 Per il nostro progetto mi sono occupato del \emph{design} dell'apparato e, se sarà effettuato il lancio, contribuir\`o all'analisi dei dati raccolti.
+\end{crewbio}
 
-\section*{}
-\textbf{Antoine Venturini} - Sono uno studente della laurea magistrale in Fisica presso l'Università di Pisa, iscritto al curriculum di Interazioni Fondamentali. Ho coltivato l'interesse per la fisica delle particelle sin dagli anni della triennale, laureandomi (nel 2020) con una tesi su una misura del bosone di Higgs di LHC @CERN e frequentando poi la stessa estate la Summer School tenuta in Giappone dalla collaborazione per l'esperimento Belle 2.  
+\begin{crewbio}{Antoine Venturini}
+Sono uno studente della laurea magistrale in Fisica presso l'Università di Pisa, iscritto al curriculum di Interazioni Fondamentali. Ho coltivato l'interesse per la fisica delle particelle sin dagli anni della triennale, laureandomi (nel 2020) con una tesi su una misura del bosone di Higgs di LHC @CERN e frequentando poi la stessa estate la Summer School tenuta in Giappone dalla collaborazione per l'esperimento Belle 2.  
 Insieme ai corsi teorici (pochi) seguo numerosi corsi (davvero tanti) dedicati agli aspetti sperimentali della ricerca in fisica delle alte energie, sia all'analisi dati che alla strumentazione per la rivelazione delle particelle.
 Ho alle spalle l'esperienza di quattro corsi di laboratorio (60 CFU), dedicati all'analisi dati e all'elettronica analogica e digitale. In particolare, nell'ultimo anno ho condotto esperienze sulla rivelazione di raggi cosmici per mezzo di rivelatori a scintillazione e fototubi. 
 
 Nell'ambito del nostro progetto, mi occupo (o mi occuperò) del sistema per la rivelazioni dei neutroni e dell'analisi dei dati raccolti (se tutto andrà bene). 
+\end{crewbio}
 
 \end{document}
 
