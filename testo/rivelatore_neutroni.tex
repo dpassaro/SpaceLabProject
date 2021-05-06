@@ -1,17 +1,15 @@
 \section{Rivelatore di neutroni}
-Essendo particelle neutre, i neutroni non possono essere rivelati con \emph{detectors} che sfruttano il principio della ionizzazione, perciò una strumentazione dedicata è necessaria. I rivelatori di neutroni sono basati sulla rivelazione di prodotti secondari (fotoni, particelle cariche) dalle reazioni nucleari indotte dall'urto del neutrone su elementi tipo $^{10}$B o $^6$Li. Questo sistema di rivelazione è efficace solo per i neutroni termici, e proprio per questo è ideale per la misura sul flusso di neutroni che ci proponiamo di svolgere. Entrambi i sistemi che vengono proposti sono basati su una plastica drogata accoppiata ad un rivelatore di fotoni: i costi ed il peso sono simili, ma hanno pregi e difetti che richiedono un approfondimento maggiore per scegliere quale utilizzare nell'esperienza (\emph{che svolgeremo appena il progetto venga approvato}). 
+Essendo particelle neutre, i neutroni non possono essere rivelati con \emph{detectors} che sfruttano il principio della ionizzazione, perciò una strumentazione dedicata è necessaria. I rivelatori di neutroni sono basati sulla rivelazione di prodotti secondari (fotoni, particelle cariche) dalle reazioni nucleari indotte dall'urto del neutrone su elementi tipo $^{10}$B o $^6$Li. Questo sistema di rivelazione è efficace solo per i neutroni termici, e proprio per questo è ideale per la nostra misura sul flusso di neutroni. Proponiamo due sistemi di rivelazione: essi hanno pregi e difetti che richiedono un approfondimento maggiore per scegliere quale utilizzare nell'esperienza (\emph{che svolgeremo appena il progetto venga approvato}). 
 
-\subsection{Prima proposta}
-Un sistema utilizza come rivelatore il dosimetro CT007-T della GammaGuard. Il dosimetro comunica tramite Bluetooth con una applicazione per Android, dove i dati (compresi data e coordinate GPS) vengono conservati. Il salvataggio dei dati su un file .csv viene eseguito attraverso comandi manuali alla fine dell'acquisizione, perciò questo sistema prevede la necessità di un cellulare che rimanga funzionante in volo e dopo l'atterraggio. Un cellulare che soddisfa le richieste è il Blackview BV4900 ProRugged (operatività garantita a temperature nel range [-55, +70] °C). 
+Un sistema utilizza come rivelatore il dosimetro CT007-T della GammaGuard. Il dosimetro comunica tramite Bluetooth con una applicazione per Android, dove i dati (compresi data e coordinate GPS) vengono conservati. Il salvataggio dei dati viene eseguito attraverso comandi manuali alla fine dell'acquisizione, perciò c'è la necessità di un cellulare che rimanga funzionante in volo e dopo l'atterraggio. Non poter salvare automaticamente i dati è il \textbf{difetto} di questo sistema.
 
-\textbf{Pregi}: 1) un rivelatore pronto all'uso e con una interfaccia semplice e dai risultati garantiti; 2) il peso complessivo (400 g); 3) l'alimentazione autonoma (due pile AA per il dosimetro, la batteria per il cellulare); 4) il cellulare supporta la ricarica inversa, perciò potrebbe essere utilizzato come power bank (\emph{da valutare in laboratorio}). 
+La seconda proposta prevede di utilizzare un rivelatore della ditta Scionix che accoppia un rivelatore di fotoni a semiconduttore a un materiale drogato con $^6$Li. Il sistema viene letto da un circuito elettronico simile a quello già montato per il rivelatore di particelle cariche (e sfrutta parte di quella elettronica). Essendo realizzato su misura, questo rivelatore è potenzialmente più affidabile per i nostri scopi; tuttavia questo sistema risulta più complesso del primo, che è già pronto all'uso. 
 
-\textbf{Difetti}: 1) Impossibilità di salvare i dati automaticamente. 
-
-\subsection{Seconda proposta}
-La seconda proposta prevede di utilizzare un rivelatore della ditta Scionix che accoppia un rivelatore di fotoni a semiconduttore a un materiale drogato con $^6$Li. Il sistema viene letto da un circuito elettronico simile a quello già montato per il rivelatore di particelle cariche (e sfrutta parte di quella elettronica).
-\textbf{Pregi}: 1) Il dispositivo è realizzato dalla ditta Scionix su misura per il nostro scopo, e sfrutta il \emph{know-how} dell'INFN per realizzare un sistema affidabile, perciò il recupero dei dati è garantito; 2) peso ($\sim$ 400 g).
-\textbf{Difetti}: 1)  \`E necessario montare un ulteriore power bank per alimentare il rivelatore; 2) l'assemblamento del sistema è più complesso di quello della prima proposta. 
-
-
-
+\begin{figure}
+    \centering
+    \includegraphics[width=0.2\textwidth]{CT007-T.png}
+    \quad
+    \includegraphics[width=0.12\textwidth]{Scionix.pdf}
+    \caption{A sinistra: foto del sistema CT007-T + cellulare; a destra: disegno del rivelatore Scionix.}
+    \label{fig:my_label}
+\end{figure}
