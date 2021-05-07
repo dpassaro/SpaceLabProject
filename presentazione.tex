@@ -18,6 +18,9 @@
 \usepackage{libertinust1math} %AMS caricato in automatico
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
 
+\usepackage{tabularx}
+\usepackage{eurosym}
+\usepackage{multirow}
 \usepackage{microtype}
 
 %%%%%%%%%%%%%%%%%%%%
@@ -62,7 +65,7 @@
 \usepackage{enumitem}
 \setlist{leftmargin=*}
 \usepackage{caption, subcaption}
-\captionsetup{labelfont={sf, sc}, textfont=sf}
+\captionsetup{labelfont={bf, sc}, textfont=sf}
 %\captionsetup[sub]{skip=0.2em}
 \usepackage{booktabs, multirow, tabularx, array}
 
@@ -101,14 +104,17 @@ Niccolò Torriti \and Antoine Venturini}
 \input{testo/rivelatore_neutroni.tex}
 \input{testo/frame.tex}
 \input{testo/surriscaldamento.tex}
+\input{testo/peso_consumi.tex}
 \input{testo/riassunto.tex}
+\input{testo/ringraziamenti.tex}
 
 \newpage
 \input{testo/bio.tex}
 \input{testo/ringraziamenti.tex}
 
 \cleardoublepage
-\input{testo/lista.tex}
 \thispagestyle{empty}
+\input{testo/lista.tex}
+
 \end{document}
 
