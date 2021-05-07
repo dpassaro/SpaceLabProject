@@ -1,2 +1,7 @@
-\subsection{Sommario}
-\be
+\section{Sommario}
+\begin{figure}[!hbt]
+\centering
+\includegraphics[width=0.5\textwidth]{SCHEMATICA.pdf}
+\caption{Schematica riassuntiva dell'apparato rivelatore, dell'elettronica Front-End e dell'elettronica di acquisizioni dati.}
+\label{schematica}
+\end{figure}
