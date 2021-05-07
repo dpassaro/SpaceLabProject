@@ -1,5 +1,7 @@
 \documentclass[twocolumn, a4paper]{article}
 
+\usepackage[hmargin=2.0cm, vmargin=2.5cm]{geometry}
+
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \DeclareUnicodeCharacter{2212}{-}
@@ -56,7 +58,6 @@
 	\setfoot{}{\thepage}{}
 }
 
-\pagestyle{plain}
 
 %%%%%%%%%%%%%
 %%% ALTRO %%%
@@ -68,9 +69,11 @@
 \usepackage{caption, subcaption}
 \captionsetup{labelfont={bf, sc}, textfont=sf}
 %\captionsetup[sub]{skip=0.2em}
-\usepackage{booktabs}
+\usepackage{booktabs, multirow, tabularx, array}
 
-\usepackage{mhchem, natbib, graphicx}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\usepackage{mhchem, natbib, graphicx, eurosym}
 \graphicspath{{immagini/}}
 \usepackage{hyperref}
 
@@ -94,6 +97,7 @@ Niccolò Torriti \and Antoine Venturini}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+\pagestyle{plain}
 \maketitle
 
 \input{testo/introduzione.tex}
@@ -106,10 +110,12 @@ Niccolò Torriti \and Antoine Venturini}
 \input{testo/riassunto.tex}
 \input{testo/ringraziamenti.tex}
 
-\newpage
+\cleardoublepage
 \input{testo/bio.tex}
 
-\newpage
-%\input{testo/lista.tex}
+\cleardoublepage
+\thispagestyle{empty}
+\input{testo/lista.tex}
+
 \end{document}
 
