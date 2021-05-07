@@ -1,6 +1,6 @@
 Tutte le misure di flusso passano attraverso la conoscenza e lo studio dettagliato dell'efficienza dei singoli detector che costituiscono il nostro apparato. Tale studio sarà effettuato a terra presso i laboratori dell'INFN come operazione preliminare al volo, presumibilmente nelle settimane precedenti al lancio. 
 
-%La rivelazione della componente carica avviene attraverso due diversi apparati: due sistemi basati su scintillatori e una \emph{micromegas}. Entrambi i detector vengono sviluppati appositamente e gentilmente finanziati dall'INFN. 
+La rivelazione della componente carica avviene attraverso due diversi apparati: due sistemi basati su scintillatori e una \emph{micromegas}. Entrambi i detector vengono sviluppati appositamente e gentilmente finanziati dall'INFN. 
 \subsection{Scintillatore}
 La prima classe di detector sfrutta il \emph{meccanismo di scintillazione} per rivelare le particelle cariche che attraversano un materiale plastico emettendo fotoni raccolti da due SiPM (Silicon PhotoMultiplier) incollati sulle pareti laterali. In particolare, i SiPM utilizzati saranno del tipo NUV (sensibili ultravioletto) della FBK\footnote{https://advansid.com/technology/silicon-photomultipliers}.
 Questo sistema scintillatore--SiPM viene letto da un'elettronica di front-end essenzialmente suddivisa in due parti: PCB (che comprende l’amplificatore e il comparatore, oltre che il circuito di alimentazione dei SiPM) e CPU (XLR8 di Alorium con FPGA). Tale apparato è già stato assemblato come mostrato in figura \ref{Telescopio}.
@@ -23,8 +23,8 @@ Quando una particella carica attraversa il detector produce elettroni di ionizza
     \label{Micromegas_Disegno}
 \end{figure}
 
-La micromegas che si implementerà è unica nel suo genere perché ottimizzata anche per la rivelazione degli ENA (atomi nutri di bassa energia) che vengono ionizzati a seguito dell'attraversamento di un foglio di carbonio posto sulla finestra di rivelazione della MM. 
-Viste le dimensioni e i pesi non sarà possibile equipaggiarla con un read-out standard, ma sarà letto soltanto il segnale della mesh, corrispondente all’OR di tutte le strip e questo non ci permetterà di fare misure di posizione. Tuttavia, questo tipo di lettura è sufficiente per effettuare misure di flusso e di efficienza della camera stessa. Rispetto ad una micromegas standard, realizzate in dimensioni anche di diversi $m^2$ per i grandi esperimenti del CERN come ATLAS, grande attenzione sarà dedicata nella costruzione della meccanica di supporto con lo scopo di permettere al detector di operare senza flussaggio di gas per tutta la durata del volo del pallone. 
+La micromegas che si implementerà è unica nel suo genere perché ottimizzata anche per la rivelazione degli ENA (atomi neutri di bassa energia) che vengono ionizzati a seguito dell'attraversamento di un foglio di carbonio posto sulla finestra di rivelazione della MM. 
+Viste le dimensioni e i pesi non sarà possibile equipaggiarla con un read-out standard, ma sarà letto soltanto il segnale della mesh, corrispondente all’OR di tutte le strip e questo non ci permetterà di fare misure di posizione. Tuttavia, questo tipo di lettura è sufficiente per effettuare misure di flusso e di efficienza della camera stessa. Rispetto ad una micromegas standard, realizzate in dimensioni anche di diversi $m^2$ per i grandi esperimenti del CERN come ATLAS, grande attenzione sarà dedicata nella costruzione della meccanica di supporto con lo scopo di permettere al detector di operare senza un sistema di flussaggio di gas per tutta la durata del volo del pallone. 
  
 \begin{figure}
 	\centering
