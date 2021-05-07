@@ -1,6 +1,21 @@
 \documentclass[twocolumn, a4paper]{article}
 
+\usepackage{upgreek}
+
+\usepackage[pdftex]{hyperref}
+
+% Impostazione dei link nel pdf
+\hypersetup{%
+    colorlinks=true,%
+    citecolor=green,%
+    linkcolor=blue,%
+    urlcolor=red,%
+}    
+
 \usepackage[hmargin=2.0cm, vmargin=2.5cm]{geometry}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{Blue_new}{RGB}{32,91,168}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -75,7 +90,6 @@
 
 \usepackage{mhchem, natbib, graphicx, eurosym}
 \graphicspath{{immagini/}}
-\usepackage{hyperref}
 
 %%%%%%%%%%%%%%%%%%%%%%
 %%% NUOVO AMBIENTE %%%
@@ -86,7 +100,15 @@
 %%%
 %%%
 
-\title{Misura del flusso di raggi cosmici e separazione delle componenti carica e neutra.}
+\title{
+\vspace*{-1.8cm}
+\includegraphics[width=0.13\textwidth]{logo_MIRACLE.pdf}
+\\
+\vspace*{-0.2cm}
+\huge\textbf{\textcolor{Blue_new}{cosMIc RAys spaCeLab Experiment}}
+\\
+\large{\textbf{Misura del flusso di raggi cosmici e separazione delle componenti carica e neutra}}}
+\vspace{0.5cm}
 \author{Adriano Del Vincio \and Viola Floris \and Daniele Passaro \and Domenico Riccardi \and Marco Riggirello
 \and
 Niccolò Torriti \and Antoine Venturini}
