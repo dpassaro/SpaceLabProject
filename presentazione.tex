@@ -53,7 +53,6 @@
 	\setfoot{}{\thepage}{}
 }
 
-\pagestyle{plain}
 
 %%%%%%%%%%%%%
 %%% ALTRO %%%
@@ -65,9 +64,11 @@
 \usepackage{caption, subcaption}
 \captionsetup{labelfont={sf, sc}, textfont=sf}
 %\captionsetup[sub]{skip=0.2em}
-\usepackage{booktabs}
+\usepackage{booktabs, multirow, tabularx, array}
 
-\usepackage{mhchem, natbib, graphicx}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\usepackage{mhchem, natbib, graphicx, eurosym}
 \graphicspath{{immagini/}}
 \usepackage{hyperref}
 
@@ -91,6 +92,7 @@ Niccolò Torriti \and Antoine Venturini}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+\pagestyle{plain}
 \maketitle
 
 \input{testo/introduzione.tex}
@@ -103,9 +105,10 @@ Niccolò Torriti \and Antoine Venturini}
 
 \newpage
 \input{testo/bio.tex}
-\input{ringraziamenti.tex}
+\input{testo/ringraziamenti.tex}
 
-\newpage
-\input{lista.tex}
+\cleardoublepage
+\input{testo/lista.tex}
+\thispagestyle{empty}
 \end{document}
 
