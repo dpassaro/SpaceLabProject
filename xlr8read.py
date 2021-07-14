@@ -2,10 +2,10 @@ import serial
 import time
 import os
 
-device_path = "/dev/tty/USB0"
-baudrate = 115200
+xlr8_path = "/dev/tty_XLR8_balloon"
+xlr8_bdrt = 115200
 
-xlr8 = serial.Serial(device_path, baudrate)
+xlr8 = serial.Serial(xlr8_path, xlr8_bdrt)
 
 fname = "data.log"
 
