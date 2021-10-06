@@ -1,8 +1,13 @@
 void analysis(char* fileName, int seconds=10){
 
+    // Silence warnings during TTree::ReadFile
+    Int_t currentIgnoreLevel = gErrorIgnoreLevel;
+    gErrorIgnoreLevel = kError;
     //read the file and access the TTree
     TTree *t = new TTree("t", "Histogram");
     t->ReadFile(fileName, "Timestamp/D:Reset_time/I:TRIGGER/I:IN0/I:IN1/I:IN2/I:IN3/I:IN4/I:IN5/I:IN6/I:IN7/I:AND0/I:AND1/I:AND2/I");
+    // Restore previous settings
+    gErrorIgnoreLevel = currentIgnoreLevel;
     t->Print();
 
     //define the variables to be read in the TTree
@@ -10,10 +15,11 @@ void analysis(char* fileName, int seconds=10){
     int IN0, IN1, IN2, IN3, IN4, IN5, IN6, IN7;
     int AND0, AND1, AND2;
 
-    TH1F *h_IN0 = new TH1F("", "Single rate distributions; Counts/60s; Occorrenze", 120, 0, 400);TH1F *h_IN1 = new TH1F("", "",  120, 0, 400);TH1F *h_IN2 = new TH1F("", "",  120, 0, 400);
-    TH1F *h_IN3 = new TH1F("", "", 120, 0, 400);TH1F *h_IN4 = new TH1F("", "", 120, 0, 400);TH1F *h_IN5 = new TH1F("", "",  120, 0, 400);
-    TH1F *h_IN6 = new TH1F("", "",  120, 0, 400);TH1F *h_IN7 = new TH1F("", "", 120, 0, 400);
-    TH1F *h_AND0= new TH1F("", "",  50, 0, 100);TH1F *h_AND1= new TH1F("", "", 50, 0, 100);TH1F *h_AND2= new TH1F("", "Double rate distributions; Counts/60s; Occorrenze",  50, 0, 100);
+    TH1F *h_IN0 = new TH1F("", "Single rate distributions; Counts/60s; Occorrenze", 100, 0, 400);TH1F *h_IN1 = new TH1F("", "",  100, 0, 400);TH1F *h_IN2 = new TH1F("", "",  100, 0, 400);
+    TH1F *h_IN3 = new TH1F("", "", 100, 0, 400);TH1F *h_IN4 = new TH1F("", "", 100, 0, 400);TH1F *h_IN5 = new TH1F("", "",  100, 0, 400);
+    TH1F *h_IN6 = new TH1F("", "",  100, 0, 400);TH1F *h_IN7 = new TH1F("", "", 100, 0, 400);
+    const char* titolo = "Double rate distributions; Counts/60s; Occorrenze";
+    TH1F *h_AND0= new TH1F("", titolo,  100, 0, 100);TH1F *h_AND1= new TH1F("", titolo, 100, 0, 100);TH1F *h_AND2= new TH1F("", titolo,  100, 0, 100);
 
     //Set the proper addresses
     t->SetBranchAddress("Timestamp", &Timestamp);
@@ -63,7 +69,7 @@ void analysis(char* fileName, int seconds=10){
         if(ev==0) first_timestamp = Timestamp;
         else if (ev==n) { last_timestamp = Timestamp; aquisition_time = last_timestamp-first_timestamp;}
             //
-        if(ev%100==0)   cout<< "Event #"<< ev*seconds/10<< endl;
+        if(ev%1000==0)   cout<< "Event #"<< ev*seconds/10<< endl;
 
         //fill the Graph
         gr0->SetPoint(ev, Timestamp-first_timestamp, IN0-cont0);
@@ -222,7 +228,7 @@ void analysis(char* fileName, int seconds=10){
     gPad->SetGrid();
 
     canvas->cd(4);
-    h_AND2->Draw();h_AND0->Draw("same");h_AND1->Draw("same");
+    h_AND1->Draw();h_AND2->Draw("same");h_AND0->Draw("same");
     TLegend* legend_double_hist = new TLegend(0.8,0.7,0.9,0.9);
     legend_double_hist->AddEntry(h_AND0,"AND0");legend_double_hist->AddEntry(h_AND1,"AND1");legend_double_hist->AddEntry(h_AND2,"AND2");
     legend_double_hist->Draw();
