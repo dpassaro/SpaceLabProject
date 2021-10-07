@@ -61,6 +61,7 @@ void analysis(char* fileName, int seconds=10){
     auto *gr_and1 = new TGraphErrors();
     auto *gr_and2 = new TGraphErrors();
 
+    double time;
     //loop on events
     for(int ev=0; ev<=n*10/seconds; ++ev){//*10/seconds
         //read the current event
@@ -71,36 +72,37 @@ void analysis(char* fileName, int seconds=10){
             //
         if(ev%1000==0)   cout<< "Event #"<< ev*seconds/10<< endl;
 
+        time = (Timestamp-first_timestamp) / 3600.;
         //fill the Graph
-        gr0->SetPoint(ev, Timestamp-first_timestamp, IN0-cont0);
+        gr0->SetPoint(ev, time, IN0-cont0);
         //gr0->SetPointError(ev, 0, sqrt(IN0-cont0));
         h_IN0->Fill(IN0-cont0);
 
-        gr1->SetPoint(ev, Timestamp-first_timestamp, IN1-cont1);
+        gr1->SetPoint(ev, time, IN1-cont1);
         //gr1->SetPointError(ev, 0, sqrt(IN1-cont1));
         h_IN1->Fill(IN1-cont1);
 
-        gr2->SetPoint(ev, Timestamp-first_timestamp, IN2-cont2);
+        gr2->SetPoint(ev, time, IN2-cont2);
         //gr2->SetPointError(ev, 0, sqrt(IN2-cont2));
         h_IN2->Fill(IN2-cont2);
 
-        gr6->SetPoint(ev, Timestamp-first_timestamp, IN6-cont6);
+        gr6->SetPoint(ev, time, IN6-cont6);
         //gr6->SetPointError(ev, 0, sqrt(IN6-cont6));
         h_IN6->Fill(IN3-cont6);
 
-        gr7->SetPoint(ev, Timestamp-first_timestamp, IN7-cont7);
+        gr7->SetPoint(ev, time, IN7-cont7);
         //gr7->SetPointError(ev, 0, sqrt(IN7-cont7));
         h_IN7->Fill(IN7-cont7);
 
-        gr_and0->SetPoint(ev, Timestamp-first_timestamp, AND0-cont_and0);
+        gr_and0->SetPoint(ev, time, AND0-cont_and0);
         //gr_and0->SetPointError(ev, 0, sqrt(AND0-cont_and0));
         h_AND0->Fill(AND0-cont_and0);
 
-        gr_and1->SetPoint(ev, Timestamp-first_timestamp, AND1-cont_and1);
+        gr_and1->SetPoint(ev, time, AND1-cont_and1);
         //gr_and1->SetPointError(ev, 0, sqrt(AND1-cont_and1));
         h_AND1->Fill(AND1-cont_and1);
 
-        gr_and2->SetPoint(ev, Timestamp-first_timestamp, AND2-cont_and2);
+        gr_and2->SetPoint(ev, time, AND2-cont_and2);
         //gr_and2->SetPointError(ev, 0, sqrt(AND2-cont_and2));
         h_AND2->Fill(AND2-cont_and2);
 
@@ -173,7 +175,7 @@ void analysis(char* fileName, int seconds=10){
     mg->Add(gr7, "PL");
     mg->Draw("APL");
 
-    const char* Line1 = "Single rate; Time[s]; Counts/";
+    const char* Line1 = "Single rate; Time[h]; Counts/";
     const char* Line2 = "6";
     const char* Line3 = "0s";
     char* TotalLine{ new char[strlen(Line1) + strlen(Line2) + strlen(Line3) + 1] };
@@ -189,7 +191,16 @@ void analysis(char* fileName, int seconds=10){
     gPad->SetGrid();
 
     canvas->cd(2);
-    h_IN0->Draw();h_IN1->Draw("same");h_IN2->Draw("same");h_IN6->Draw("same");h_IN7->Draw("same");
+    h_IN0->SetFillColor(kRed); h_IN0->SetFillStyle(3002);
+    h_IN0->Draw();
+    h_IN1->SetFillColor(kBlue); h_IN1->SetFillStyle(3002);
+    h_IN1->Draw("same");
+    h_IN2->SetFillColor(kBlack); h_IN2->SetFillStyle(3002);
+    h_IN2->Draw("same");
+    h_IN6->SetFillColor(kOrange); h_IN6->SetFillStyle(3002);
+    h_IN6->Draw("same");
+    h_IN7->SetFillColor(kGreen+2); h_IN7->SetFillStyle(3002);
+    h_IN7->Draw("same");
     TLegend* legend_single_hist = new TLegend(0.8,0.7,0.9,0.9);
     legend_single_hist->AddEntry(h_IN0,"IN0");legend_single_hist->AddEntry(h_IN1,"IN1");
     legend_single_hist->AddEntry(h_IN2,"IN2");legend_single_hist->AddEntry(h_IN6,"IN6");legend_single_hist->AddEntry(h_IN7,"IN7");
@@ -221,14 +232,19 @@ void analysis(char* fileName, int seconds=10){
     mg_and->Add(gr_and1, "PL");
     mg_and->Add(gr_and2, "PL");
     mg_and->Draw("APL");
-    mg_and->SetTitle("Double rate; Time[s]; Counts/60s");
+    mg_and->SetTitle("Double rate; Time[h]; Counts/60s");
     TLegend* legend_double = new TLegend(0.8,0.7,0.9,0.9);
     legend_double->AddEntry(gr_and0,"AND0");legend_double->AddEntry(gr_and1,"AND1");legend_double->AddEntry(gr_and2,"AND2");
     legend_double->Draw();
     gPad->SetGrid();
 
     canvas->cd(4);
-    h_AND1->Draw();h_AND2->Draw("same");h_AND0->Draw("same");
+    h_AND1->SetFillColor(kBlue); h_AND1->SetFillStyle(3002);
+    h_AND1->Draw();
+    h_AND2->SetFillColor(kGreen+2); h_AND2->SetFillStyle(3002);
+    h_AND2->Draw("same");
+    h_AND0->SetFillColor(kRed); h_AND0->SetFillStyle(3002);
+    h_AND0->Draw("same");
     TLegend* legend_double_hist = new TLegend(0.8,0.7,0.9,0.9);
     legend_double_hist->AddEntry(h_AND0,"AND0");legend_double_hist->AddEntry(h_AND1,"AND1");legend_double_hist->AddEntry(h_AND2,"AND2");
     legend_double_hist->Draw();
