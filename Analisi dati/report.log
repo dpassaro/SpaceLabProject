@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.31)  5 OCT 2021 15:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.31)  7 OCT 2021 12:09
 entering extended mode
 **./report.tex
 (report.tex
@@ -501,31 +501,60 @@ Overfull \hbox (2.43332pt too wide) in paragraph at lines 76--110
 []$[]$ $[]$ 
  []
 
-[4] (report.aux) ) 
+<Immagini/20210921.pdf, id=70, 569.12625pt x 227.85126pt>
+File: Immagini/20210921.pdf Graphic file (type pdf)
+<use Immagini/20210921.pdf>
+Package pdftex.def Info: Immagini/20210921.pdf  used on input line 121.
+(pdftex.def)             Requested size: 384.1096pt x 153.786pt.
+<Immagini/20210928.pdf, id=71, 569.12625pt x 441.65pt>
+File: Immagini/20210928.pdf Graphic file (type pdf)
+<use Immagini/20210928.pdf>
+Package pdftex.def Info: Immagini/20210928.pdf  used on input line 125.
+(pdftex.def)             Requested size: 384.1096pt x 298.0874pt.
+<Immagini/20210930.pdf, id=72, 569.12625pt x 441.65pt>
+File: Immagini/20210930.pdf Graphic file (type pdf)
+<use Immagini/20210930.pdf>
+Package pdftex.def Info: Immagini/20210930.pdf  used on input line 128.
+(pdftex.def)             Requested size: 384.1096pt x 298.0874pt.
+<Immagini/20211005.pdf, id=73, 569.12625pt x 441.65pt>
+File: Immagini/20211005.pdf Graphic file (type pdf)
+<use Immagini/20211005.pdf>
+Package pdftex.def Info: Immagini/20211005.pdf  used on input line 131.
+(pdftex.def)             Requested size: 384.1096pt x 298.0874pt.
+<Immagini/20211006.pdf, id=74, 569.12625pt x 441.65pt>
+File: Immagini/20211006.pdf Graphic file (type pdf)
+<use Immagini/20211006.pdf>
+Package pdftex.def Info: Immagini/20211006.pdf  used on input line 134.
+(pdftex.def)             Requested size: 384.1096pt x 298.0874pt.
+[4 <./Immagini/20210921.pdf, page is rotated 90 degrees>] [5 <./Immagini/202109
+28.pdf, page is rotated 90 degrees> <./Immagini/20210930.pdf, page is rotated 9
+0 degrees>] [6 <./Immagini/20211005.pdf, page is rotated 90 degrees> <./Immagin
+i/20211006.pdf, page is rotated 90 degrees>] (report.aux) ) 
 Here is how much of TeX's memory you used:
- 8614 strings out of 480257
- 187951 string characters out of 2880493
- 440868 words of memory out of 3000000
- 25087 multiletter control sequences out of 15000+200000
+ 8645 strings out of 480257
+ 188823 string characters out of 2880493
+ 441868 words of memory out of 3000000
+ 25113 multiletter control sequences out of 15000+200000
  541114 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,11n,78p,836b,512s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\Daniele\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
-pen/ec/dpi600\tcrm1095.pk><C:/Users/Daniele/AppData/Local/Programs/MiKTeX/fonts
-/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Daniele/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Daniele/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Daniele/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/
-Daniele/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-<C:/Users/Daniele/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmr17.pfb><C:/Users/Daniele/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
-sfonts/cm/cmr8.pfb><C:/Users/Daniele/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb><C:/Users/Daniele/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Daniele/AppData/Local/Progra
-ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on report.pdf (4 pages, 505516 bytes).
+ <C:\Users\Daniele\A
+ppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk><C:/Users/Da
+niele/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
+C:/Users/Daniele/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mbx12.pfb><C:/Users/Daniele/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmmi10.pfb><C:/Users/Daniele/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr10.pfb><C:/Users/Daniele/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Daniele/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Daniele/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Daniele/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/User
+s/Daniele/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.p
+fb><C:/Users/Daniele/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmtt10.pfb>
+Output written on report.pdf (6 pages, 2368736 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
+ 335 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
