@@ -17,7 +17,7 @@ void analysis(char* fileName, int seconds=10){
 
     TH1F *h_IN0 = new TH1F("", "Single rate distributions; Counts/60s; Occorrenze", 100, 0, 400);TH1F *h_IN1 = new TH1F("", "",  100, 0, 400);TH1F *h_IN2 = new TH1F("", "",  100, 0, 400);
     TH1F *h_IN3 = new TH1F("", "", 100, 0, 400);TH1F *h_IN4 = new TH1F("", "", 100, 0, 400);TH1F *h_IN5 = new TH1F("", "",  100, 0, 400);
-    TH1F *h_IN6 = new TH1F("", "",  100, 0, 400);TH1F *h_IN7 = new TH1F("", "", 100, 0, 400);
+    TH1F *h_IN6 = new TH1F("", "",  100, 0,400);TH1F *h_IN7 = new TH1F("", "", 100, 0, 400);
     const char* titolo = "Double rate distributions; Counts/60s; Occorrenze";
     TH1F *h_AND0= new TH1F("", titolo,  100, 0, 100);TH1F *h_AND1= new TH1F("", titolo, 100, 0, 100);TH1F *h_AND2= new TH1F("", titolo,  100, 0, 100);
 
@@ -88,7 +88,7 @@ void analysis(char* fileName, int seconds=10){
 
         gr6->SetPoint(ev, time, IN6-cont6);
         //gr6->SetPointError(ev, 0, sqrt(IN6-cont6));
-        h_IN6->Fill(IN3-cont6);
+        h_IN6->Fill(IN6-cont6);
 
         gr7->SetPoint(ev, time, IN7-cont7);
         //gr7->SetPointError(ev, 0, sqrt(IN7-cont7));
@@ -134,7 +134,7 @@ void analysis(char* fileName, int seconds=10){
 
     //Crates the frame for the plot
     auto canvas = new TCanvas("canvas","",1000,800);
-    canvas->Divide(2,2);
+    canvas->Divide(2,1);
     canvas->cd(1);
     //Bellurie for the plot
     gr0->SetTitle("IN0");
@@ -207,6 +207,7 @@ void analysis(char* fileName, int seconds=10){
     legend_single_hist->Draw();
     gPad->SetGrid();gStyle->SetOptStat(0);
 
+    /*
     canvas->cd(3);
 
     gr_and0->SetTitle("AND0");
@@ -249,5 +250,5 @@ void analysis(char* fileName, int seconds=10){
     legend_double_hist->AddEntry(h_AND0,"AND0");legend_double_hist->AddEntry(h_AND1,"AND1");legend_double_hist->AddEntry(h_AND2,"AND2");
     legend_double_hist->Draw();
     gPad->SetGrid(); gStyle->SetOptStat(0);
-
+    */
 }
