@@ -1,0 +1,14 @@
+####### Sessione di laboratorio del 11/10/2021 ######
+- Eliminata la mattonella 2 e sostituito l'ingresso di lettura della mattonella 0. 
+- La mattonella 0 viene letta sul pin 2 e non sul pin0 (per effettuare un test di prova del pin2).
+- Sostituito la mattonella 2 con la mattonella 2B che viene collegata al pin6. 
+- Aggiunta una nuova mattonella (battezzata mattonella 3) che viene collegata sul pin0 (viene disposta nel frame interno sulla base di compensato).
+- Inalterate le connessioni delle mattonelle 7 e 1.
+- Riepilogo:
+- Pin0 -> mattonella 3
+- Pin1 -> mattonella 1
+- Pin2 -> mattonella 0
+- Pin6 -> mattonella 2B
+- Pin7 -> mattonella 7
+
+
