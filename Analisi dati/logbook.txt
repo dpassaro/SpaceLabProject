@@ -12,3 +12,9 @@
 - Pin7 -> mattonella 7
 
 
+####### Sessione di laboratorio del 14/10/2021 ######
+
+Stessi pin, 
+AND0 = 1-3
+AND1 = 2B - 0
+AND2 = 1-3-7

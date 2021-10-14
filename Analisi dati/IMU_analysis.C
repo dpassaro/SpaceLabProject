@@ -7,7 +7,7 @@ void analysis(char* fileName){
     TTree *t = new TTree("t", "Histogram");
     t->ReadFile(fileName, "Timestamp/D:kalmanX/D:kalmanY/D:gyroXangle/D:AccXangle/D:CFangleX/D:gyroYangle/D:AccYangle/D:CFangleY/D");
     // Restore previous settings
-    /gErrorIgnoreLevel = currentIgnoreLevel;
+    gErrorIgnoreLevel = currentIgnoreLevel;
     t->Print();
 
     //define the variables to be read in the TTree
@@ -90,11 +90,12 @@ void analysis(char* fileName){
     graph_CFangleX->SetMarkerSize(0.5);
 
     auto mg_x = new TMultiGraph("mg_x","mg_x");
-    mg_x->Add(graph_kalmanX, "PL");
-    mg_x->Add(graph_gyroXangle, "PL");
-    mg_x->Add(graph_AccXangle, "PL");
-    mg_x->Add(graph_CFangleX, "PL");
-    mg_x->Draw("APL");
+    mg_x->Add(graph_kalmanX, "L");
+    // scommentare per vedere gli andamenti degli altri angoli in X
+    //mg_x->Add(graph_gyroXangle, "L");
+    //mg_x->Add(graph_AccXangle, "L");
+    //mg_x->Add(graph_CFangleX, "L");
+    mg_x->Draw("AL");
 
     mg_x->SetTitle("Angolo X; Time[s]; Degrees");
 
@@ -128,11 +129,11 @@ void analysis(char* fileName){
     graph_CFangleY->SetMarkerSize(0.5);
 
     auto mg_y = new TMultiGraph("mg_y","mg_y");
-    mg_y->Add(graph_kalmanY, "PL");
-    mg_y->Add(graph_gyroYangle, "PL");
-    mg_y->Add(graph_AccYangle, "PL");
-    mg_y->Add(graph_CFangleY, "PL");
-    mg_y->Draw("APL");
+    mg_y->Add(graph_kalmanY, "L");
+    //mg_y->Add(graph_gyroYangle, "L");
+    //mg_y->Add(graph_AccYangle, "L");
+    //mg_y->Add(graph_CFangleY, "L");
+    mg_y->Draw("AL");
 
     mg_y->SetTitle("Angolo Y; Time[s]; Degrees");
 
