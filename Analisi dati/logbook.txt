@@ -10,7 +10,9 @@
 - Pin2 -> mattonella 0
 - Pin6 -> mattonella 2B
 - Pin7 -> mattonella 7
-
+AND0 = 3 - 7
+AND1 = 1 - 7
+AND2 = 3 - 1
 
 ####### Sessione di laboratorio del 14/10/2021 ######
 

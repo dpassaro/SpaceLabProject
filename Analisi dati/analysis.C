@@ -134,7 +134,7 @@ void analysis(char* fileName, int seconds=10){
 
     //Crates the frame for the plot
     auto canvas = new TCanvas("canvas","",1000,800);
-    canvas->Divide(2,1);
+    canvas->Divide(2,2);
     canvas->cd(1);
     //Bellurie for the plot
     gr0->SetTitle("IN0");
@@ -207,7 +207,7 @@ void analysis(char* fileName, int seconds=10){
     legend_single_hist->Draw();
     gPad->SetGrid();gStyle->SetOptStat(0);
 
-    /*
+
     canvas->cd(3);
 
     gr_and0->SetTitle("AND0");
@@ -250,5 +250,5 @@ void analysis(char* fileName, int seconds=10){
     legend_double_hist->AddEntry(h_AND0,"AND0");legend_double_hist->AddEntry(h_AND1,"AND1");legend_double_hist->AddEntry(h_AND2,"AND2");
     legend_double_hist->Draw();
     gPad->SetGrid(); gStyle->SetOptStat(0);
-    */
+
 }

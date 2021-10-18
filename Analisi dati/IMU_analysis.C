@@ -1,4 +1,4 @@
-void analysis(char* fileName){
+void imu_analysis(char* fileName){
 
     // Silence warnings during TTree::ReadFile
     Int_t currentIgnoreLevel = gErrorIgnoreLevel;
