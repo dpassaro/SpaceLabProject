@@ -1,3 +1,15 @@
 # SpaceLabProject
-In questo repository possiamo collaborare in modo da scrivere la presentazione del progetto insieme. Sfortunatamente, non è disponibile un editor di testo in stile Overleaf, dunque chi apporta modifiche deve farlo in locale, per poi fare un commit e aggiornare per tutti gli altri i file.
-Possiamo creare anche ulteriori branch in cui dividerci eventuali lavori, ad esempio simulazioni varie e in futuro gli algoritmi di analisi dati. 
+Repository del progetto MIRACLE (cosMIc RAys spaCeLab Experiment), Università di Pisa, Dipartimento di Fisica.
+Struttura del repository:
+
+- Analisi dati: cartella con dati acquisiti e codici di analisi dati;
+
+- Presentazione iniziale: script in latex e pdf della proposta originaria per il bando;
+
+- Script acquisizione dati: codici per la comunicazine tra il RaspberryPi e l'hardware;
+
+- Sketch XLR8: sketch Arduino di configurazione della FPGA
+
+Ulteriori informazioni sul materiale utilizzato e report delle varie sedute sperimentali: https://drive.google.com/drive/u/0/folders/0AM9lA1Hh4ZBjUk9PVA
+
+![LOGO_BLUE - Copia](https://user-images.githubusercontent.com/71962854/138490854-79958acd-1c0e-4650-b768-d64247e79f90.png)
