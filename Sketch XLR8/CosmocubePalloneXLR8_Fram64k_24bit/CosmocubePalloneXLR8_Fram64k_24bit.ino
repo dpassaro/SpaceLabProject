@@ -778,6 +778,9 @@ while(1) {
       else if(ch=='<') testPulseIN3();
   #endif
       else if(ch=='v') printVoltages();
+      //-------------------------------------------
+      else if(ch=='V') printVbias();
+      //-------------------------------------------
      // else if(ch=='+') plotMu();
       else if(ch=='d') {
          disp_mode++;  

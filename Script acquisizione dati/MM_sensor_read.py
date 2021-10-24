@@ -33,7 +33,12 @@ if __name__ == "__main__":
     fname = os.path.join("home","pi","Desktop","data_MMsensor.log")
     SENSOR_PATH = "/dev/tty_MM_sensor" #"/dev/tty_Arduino" per il sensore vecchio
     SENSOR_BDRT = 115200
-    sensor = serial.Serial(SENSOR_PATH, SENSOR_BDRT)
+    try:
+        sensor = serial.Serial(SENSOR_PATH, SENSOR_BDRT)
+    except serial.SerialException:
+        print("Connession error: MM_sensor not found")
+        sys.exit()
+
     sensor.close()
     sensor.open()
 

@@ -7,7 +7,7 @@
     -) conteggi di "trigger" (combinazione di diversi PIN)
     -) conteggi in singola;
     -) conteggi in doppia;
-    Le coincidenze doppie e il trigger vanno programmati tramite l'apposito sketch di 
+    Le coincidenze doppie e il trigger vanno programmati tramite l'apposito sketch di
     configurazione ('Sketch XLR8'\CosmocubePalloneXLR8_Fram64k_24bit) o tramite PuTTy.
     Il file di log è aperto in modalità 'append': per dividere diverse acquisizioni
     dati, vengono stampate due righe informative all'inizio di ciasuna di esse.
@@ -37,7 +37,12 @@ if __name__ == "__main__":
     fname = os.path.join("home","pi","Desktop","data_xlr8.log")
     XLR8_PATH = "/dev/tty_XLR8_balloon"
     XLR8_BDRT = 115200
-    xlr8 = serial.Serial(XLR8_PATH, XLR8_BDRT)
+    try:
+        xlr8 = serial.Serial(XLR8_PATH, XLR8_BDRT)
+    except serial.SerialException:
+        print("Connession error: XLR8 not found")
+        sys.exit()
+
     xlr8.close()
     xlr8.open()
 
@@ -47,11 +52,14 @@ if __name__ == "__main__":
     \tIN5\tIN6\tIN7\tAND0\tAND1\tAND2\n\r")
     log_file.close()
 
-    if xlr8.readline().decode():
-        print("XLR8 balloon ready and working")
+    xlr8.write(str.encode('V'))
+    check = xlr8.readline().decode()
+
+    if float(check) < 1 :
+        print(f"XLR8 balloon not working: Vbias ={check}")
+        sys.exit()
     else :
-        print("XLR8 balloon not working")
-    sys.exit()
+        print("XLR8 balloon ready and working")
 
     xlr8.write(str.encode('r'))
     i=1

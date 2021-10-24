@@ -672,16 +672,29 @@ void readEventsData(void) {
   */
 }
 
+void printVbias(void) {
+  //---------------------------------------- STAMPA V_BIAS: VERIFICARE SE FUNZIONA
+  char str_temp[6];
+  unsigned long temp;
+  
+  temp = (unsigned long)analogRead(Vbias);
+  temp = (temp*480)/1000;  // legge Vbias/10, step 5 mV, quindi *5 e trovo i mV, *10 trovo la vera Vbias in mV  METTO 496/10 per compensare errori partitore, /100 per risoluzione 0.1V
+  // 1st param is mininum width, 2nd param is precision; float value is copied onto str_temp
+  dtostrf((float)temp/10, 2, 1, str_temp);
+  
+  Serial.print(str_temp); Serial.flush(); 
+  //----------------------------------------
+}
+
 void dataBufferDumpPallone(void) {
 //  uint16_t currentWritePointer, bufferPointer;
   uint32_t currentWritePointer, bufferPointer;
   uint32_t temp32;
   uint8_t i;
-
   //noInterrupts();
   
   Serial.println();
-  Serial.println(F("Time_sec trig #0 #1 #2 #3 #4 #5 #6 #7 And0 And1 And2:"));
+  Serial.println(F("Time_sec trig #0 #1 #2 #3 #4 #5 #6 #7 And0 And1 And2 V_bias:"));
   Serial.println();
   currentWritePointer = read_FRAM_long32(DATA_BUFFER_WRITE_POINTER);
 
@@ -704,6 +717,9 @@ void dataBufferDumpPallone(void) {
        Serial.print(temp32);Serial.flush(); Serial.print(" "); Serial.flush();
        bufferPointer+=NbytePerSingleLogData;
     }
+    //-------------------------------------
+    printVbias();
+    //-------------------------------------
     Serial.println(); Serial.flush();
   }
   
