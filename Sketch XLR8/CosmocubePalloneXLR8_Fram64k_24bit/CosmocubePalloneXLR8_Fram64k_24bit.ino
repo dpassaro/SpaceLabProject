@@ -739,20 +739,22 @@ while(1) {
     else rollTRIGGER();
   }
 */
+
   if(timerFlag==1) {
    //   FIFO2FRAM();  // eliminata per mancanza di spazio nell'FPGA
       // calcolo rate per minuto, una volta al secondo in base agli ultimi 15 secondi
       eventiPerMinuto = rate60sec(); 
        
     //  tempoSecondi = (time_in_ms + 499)/1000;
-  
       dispInfo();
-      saveInterval = (saveInterval+1)%20; // salvo ogni secondo, PRAMETERIZZARE!!! se a dividere c'è 2-> una volta al secondo
+      saveInterval = (saveInterval+1)%2; // salvo ogni secondo, PRAMETERIZZARE!!! se a dividere c'è 2-> una volta al secondo
       if(saveInterval==0) saveCountersInFRAM(); // !!! se la keyb è attiva salvare solo il tempo e il contatore di trigger!!!! ???
       if(dumpFlag==1)  {
          dataBufferDumpPallone();
          dumpFlag=0;
+         
       }
+      
       timerFlag=0;
      // Serial.println("*");
  }  // fine timerflag==1
@@ -780,6 +782,7 @@ while(1) {
       else if(ch=='v') printVoltages();
       //-------------------------------------------
       else if(ch=='V') printVbias();
+      // else if(ch=='V') printVbias();
       //-------------------------------------------
      // else if(ch=='+') plotMu();
       else if(ch=='d') {
@@ -802,7 +805,7 @@ while(1) {
          else { lcd.noBacklight(); lcdOff=true; write_FRAM_byte(EEPROM_OnOffDisplay_ADDR, 0);}
       }        
       else Serial.print(ch);
-      Serial.print(F("\n\r>")); 
+      //Serial.print(F("\n\r>")); 
    }
 
 }

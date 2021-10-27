@@ -4,14 +4,16 @@ void analysis(char* fileName, int seconds=10){
     Int_t currentIgnoreLevel = gErrorIgnoreLevel;
     gErrorIgnoreLevel = kError;
     //read the file and access the TTree
-    TTree *t = new TTree("t", "Histogram");
-    t->ReadFile(fileName, "Timestamp/D:Reset_time/I:TRIGGER/I:IN0/I:IN1/I:IN2/I:IN3/I:IN4/I:IN5/I:IN6/I:IN7/I:AND0/I:AND1/I:AND2/I:V_BIAS/D");
+    TTree *t = new TTree("t", "XLR8_data");
+    // !!!!!! Verificare struttura dei dati dalla riga di disclaimer #---- dal file.log in esame !!!!!!!!!!!!!
+    // per i file prima del 27/10/2021 non sono presente i voltaggi, per il file del 27/10/2021 sta come prima colonna
+    t->ReadFile(fileName, "Timestamp/D:Reset_time/I:TRIGGER/I:IN0/I:IN1/I:IN2/I:IN3/I:IN4/I:IN5/I:IN6/I:IN7/I:AND0/I:AND1/I:AND2/I:V_BIAS/D:V_THR1/D:");
     // Restore previous settings
     gErrorIgnoreLevel = currentIgnoreLevel;
     t->Print();
 
     //define the variables to be read in the TTree
-    double Timestamp, V_bias;
+    double Timestamp, V_bias, V_thr1, V_thr2;
     int IN0, IN1, IN2, IN3, IN4, IN5, IN6, IN7;
     int AND0, AND1, AND2;
 
@@ -22,6 +24,7 @@ void analysis(char* fileName, int seconds=10){
     TH1F *h_AND0= new TH1F("", titolo,  100, 0, 100);TH1F *h_AND1= new TH1F("", titolo, 100, 0, 100);TH1F *h_AND2= new TH1F("", titolo,  100, 0, 100);
 
     //Set the proper addresses
+    //t->SetBranchAddress("V_BIAS", &V_bias); // solo per la presa dati del 27/10/2021
     t->SetBranchAddress("Timestamp", &Timestamp);
     t->SetBranchAddress("IN0", &IN0);
     t->SetBranchAddress("IN1", &IN1);
@@ -35,7 +38,8 @@ void analysis(char* fileName, int seconds=10){
     t->SetBranchAddress("AND1", &AND1);
     t->SetBranchAddress("AND2", &AND2);
     t->SetBranchAddress("V_BIAS", &V_bias);
-
+    t->SetBranchAddress("V_THR1", &V_thr1);
+    t->SetBranchAddress("V_THR2", &V_thr2);
     //Get the number of entries in the TTree
     int n = t->GetEntries();
 
@@ -255,24 +259,27 @@ void analysis(char* fileName, int seconds=10){
 }
 
 
-void analysis_vbias(char* fileName, int seconds=10){
+void analysis_voltages(char* fileName, int seconds=10){
 
     // Silence warnings during TTree::ReadFile
     Int_t currentIgnoreLevel = gErrorIgnoreLevel;
     gErrorIgnoreLevel = kError;
     //read the file and access the TTree
     TTree *t = new TTree("t", "Histogram");
-    t->ReadFile(fileName, "Timestamp/D:Reset_time/I:TRIGGER/I:IN0/I:IN1/I:IN2/I:IN3/I:IN4/I:IN5/I:IN6/I:IN7/I:AND0/I:AND1/I:AND2/I:V_BIAS/D");
+    // !!!!!! Verificare struttura dei dati dalla riga di disclaimer #---- dal file.log in esame !!!!!!!!!!!!!
+    // per i file prima del 27/10/2021 non sono presente i voltaggi, per il file del 27/10/2021 sta come prima colonna
+    t->ReadFile(fileName, "Timestamp/D:Reset_time/I:TRIGGER/I:IN0/I:IN1/I:IN2/I:IN3/I:IN4/I:IN5/I:IN6/I:IN7/I:AND0/I:AND1/I:AND2/I:V_BIAS/D:V_THR1/D:");
     // Restore previous settings
     gErrorIgnoreLevel = currentIgnoreLevel;
     t->Print();
 
     //define the variables to be read in the TTree
-    double Timestamp, V_bias;
+    double Timestamp, V_bias, V_thr1, V_thr2;
     int IN0, IN1, IN2, IN3, IN4, IN5, IN6, IN7;
     int AND0, AND1, AND2;
 
     //Set the proper addresses
+    //t->SetBranchAddress("V_BIAS", &V_bias); // solo per la presa dati del 27/10/2021
     t->SetBranchAddress("Timestamp", &Timestamp);
     t->SetBranchAddress("IN0", &IN0);
     t->SetBranchAddress("IN1", &IN1);
@@ -286,6 +293,8 @@ void analysis_vbias(char* fileName, int seconds=10){
     t->SetBranchAddress("AND1", &AND1);
     t->SetBranchAddress("AND2", &AND2);
     t->SetBranchAddress("V_BIAS", &V_bias);
+    t->SetBranchAddress("V_THR1", &V_thr1);
+    t->SetBranchAddress("V_THR2", &V_thr2);
 
     //Get the number of entries in the TTree
     int n = t->GetEntries();
@@ -311,6 +320,8 @@ void analysis_vbias(char* fileName, int seconds=10){
     auto *gr_and1 = new TGraphErrors();
     auto *gr_and2 = new TGraphErrors();
     auto *gr_Vbias = new TGraphErrors();
+    auto *gr_V_thr1 = new TGraphErrors();
+    auto *gr_V_thr2 = new TGraphErrors();
 
     //loop on events
     for(int ev=0; ev<=n*10/seconds; ++ev){//*10/seconds
@@ -346,6 +357,8 @@ void analysis_vbias(char* fileName, int seconds=10){
         //gr_and2->SetPointError(ev, 0, sqrt(AND2-cont_and2));
 
         gr_Vbias->SetPoint(ev, (Timestamp-first_timestamp)/3600. , V_bias);
+        gr_V_thr1->SetPoint(ev, (Timestamp-first_timestamp)/3600. , V_thr1/10); // porto in scala comune
+        gr_V_thr2->SetPoint(ev, (Timestamp-first_timestamp)/3600. , V_thr2/10); // porto in scala comune
 
         if(IN7<cont7) cout<<"Event number: "<<ev*seconds/10<<endl;
 
@@ -362,7 +375,7 @@ void analysis_vbias(char* fileName, int seconds=10){
     }
 
     //Crates the frame for the plot
-    auto canvas = new TCanvas("canvas","",1000,600);
+    auto canvas = new TCanvas("canvas","",1400,600);
     canvas->Divide(3,1);
     canvas->cd(1);
     //Bellurie for the plot
@@ -458,7 +471,31 @@ void analysis_vbias(char* fileName, int seconds=10){
     gr_Vbias->SetLineColor(kRed);
     gr_Vbias->SetMarkerSize(0.5);
     gr_Vbias->SetTitle("V_bias; Time[h]; V_bias/60s [V]");
-    gr_Vbias->Draw("APL");
+    // /* // per la presa dati del 27/10/2021
+    gr_V_thr1->SetTitle("V_thr1 * 100");
+    gr_V_thr1->SetMarkerStyle(8);
+    gr_V_thr1->SetMarkerColor(kBlue);
+    gr_V_thr1->SetLineColor(kBlue);
+    gr_V_thr1->SetMarkerSize(0.5);
+    gr_V_thr1->SetTitle("V_thr1; Time[h]; V_thr1/60s [mV]");
+
+    gr_V_thr2->SetTitle("V_thr2 * 100");
+    gr_V_thr2->SetMarkerStyle(8);
+    gr_V_thr2->SetMarkerColor(kGreen);
+    gr_V_thr2->SetLineColor(kGreen);
+    gr_V_thr2->SetMarkerSize(0.5);
+    gr_V_thr2->SetTitle("V_thr2; Time[h]; V_thr2/60s [mV]");
+    // */ // per la presa dati del 27/10/2021
+
+    auto mg_voltages = new TMultiGraph("mg_voltages","mg_voltages");
+    mg_voltages->Add(gr_Vbias, "PL");
+    // /* // per la presa dati del 27/10/2021
+    mg_voltages->Add(gr_V_thr1, "PL");
+    mg_voltages->Add(gr_V_thr2, "PL");
+    // */ // per la presa dati del 27/10/2021
+    mg_voltages->Draw("APL");
+    mg_voltages->SetTitle("Tensioni di lavoro; Time[h]; Tensione [V]");
+
     gPad->BuildLegend();
     gPad->SetGrid();
 

@@ -516,7 +516,7 @@ void printVoltages(void) {
       Serial.print("Thr: ");
       if(Vadc2>0) Serial.print('+');
       if(Vadc2==0) Serial.print(' ');     
-      Serial.print(Vadc1); Serial.println(F("mV"));
+      Serial.print(Vadc2); Serial.println(F("mV"));
 // Vb     
       temp32 = (unsigned long)analogRead(Vbias);
 #if defined(FULL)
@@ -672,6 +672,29 @@ void readEventsData(void) {
   */
 }
 
+void printVbias_Vthr(void){
+    char str_temp[6];
+    unsigned long temp32;
+// S (THR)
+      Vadc1 = analogRead(Vthr1);
+      Vadc2 = analogRead(Vthr2);
+      
+      Vadc1 = (int16_t) ((((int32_t)Vadc1 - 520)*489)/100);  // 4.89 mV/step, 2.50 V Vref
+      if(Vadc1==0) Serial.print(' ');     
+      Serial.print(Vadc1);
+
+      Vadc2 = (int16_t) ((((int32_t)Vadc2 - 520)*489)/100);  // 4.89 mV/step, 2.50 V Vref
+      if(Vadc2==0) Serial.print(' ');     
+      Serial.print(Vadc2);  
+
+      temp = (unsigned long)analogRead(Vbias);
+      temp = (temp*480)/1000;  // legge Vbias/10, step 5 mV, quindi *5 e trovo i mV, *10 trovo la vera Vbias in mV  METTO 496/10 per compensare errori partitore, /100 per risoluzione 0.1V
+      // 1st param is mininum width, 2nd param is precision; float value is copied onto str_temp
+      dtostrf((float)temp/10, 2, 1, str_temp);
+  
+      Serial.print(str_temp); Serial.print(' ');
+}
+
 void printVbias(void) {
   //---------------------------------------- STAMPA V_BIAS: VERIFICARE SE FUNZIONA
   char str_temp[6];
@@ -682,7 +705,7 @@ void printVbias(void) {
   // 1st param is mininum width, 2nd param is precision; float value is copied onto str_temp
   dtostrf((float)temp/10, 2, 1, str_temp);
   
-  Serial.print(str_temp); Serial.flush(); 
+  Serial.print(str_temp); Serial.print("");
   //----------------------------------------
 }
 
@@ -697,7 +720,6 @@ void dataBufferDumpPallone(void) {
   Serial.println(F("Time_sec trig #0 #1 #2 #3 #4 #5 #6 #7 And0 And1 And2 V_bias:"));
   Serial.println();
   currentWritePointer = read_FRAM_long32(DATA_BUFFER_WRITE_POINTER);
-
   if(currentWritePointer < DATA_BUFFER_START_ADDR) {
     Serial.println(F("Write pointer less than DATA_BUFFER_START_ADDR"));
     interrupts();
@@ -708,22 +730,17 @@ void dataBufferDumpPallone(void) {
     interrupts();
     return;
   }
-
 // qui print del blocco dati fino a fine buffer
   for(bufferPointer = DATA_BUFFER_START_ADDR; bufferPointer < currentWritePointer; ) {
-   // Serial.print(bufferPointer); Serial.flush(); Serial.print(" "); Serial.flush();
+    Serial.print(bufferPointer); Serial.flush(); Serial.print(" "); Serial.flush();
     for(i=0; i<NparamLog; i++) {
        temp32 = read_FRAM_long24(bufferPointer) ;
        Serial.print(temp32);Serial.flush(); Serial.print(" "); Serial.flush();
        bufferPointer+=NbytePerSingleLogData;
     }
-    //-------------------------------------
-    printVbias();
-    //-------------------------------------
     Serial.println(); Serial.flush();
   }
-  
-  Serial.print(">"); Serial.flush();
+  //Serial.print(">"); Serial.flush();
 }
 
 void dataBufferDump(void) {
@@ -1219,6 +1236,8 @@ void saveCountersInFRAM(void) {
 //  Serial.println(read_FRAM_long24(write_pointer-3));
   Serial.print(temp32); Serial.print(' ');
 
+  //printVbias()
+  printVbias_Vthr()
   Serial.println();
 }
 
