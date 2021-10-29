@@ -675,17 +675,18 @@ void readEventsData(void) {
 void printVbias_Vthr(void){
     char str_temp[6];
     unsigned long temp32;
+    unsigned long temp;
 // S (THR)
       Vadc1 = analogRead(Vthr1);
       Vadc2 = analogRead(Vthr2);
       
       Vadc1 = (int16_t) ((((int32_t)Vadc1 - 520)*489)/100);  // 4.89 mV/step, 2.50 V Vref
       if(Vadc1==0) Serial.print(' ');     
-      Serial.print(Vadc1);
+      Serial.print(Vadc1);Serial.print(' ');
 
       Vadc2 = (int16_t) ((((int32_t)Vadc2 - 520)*489)/100);  // 4.89 mV/step, 2.50 V Vref
       if(Vadc2==0) Serial.print(' ');     
-      Serial.print(Vadc2);  
+      Serial.print(Vadc2); Serial.print(' ');
 
       temp = (unsigned long)analogRead(Vbias);
       temp = (temp*480)/1000;  // legge Vbias/10, step 5 mV, quindi *5 e trovo i mV, *10 trovo la vera Vbias in mV  METTO 496/10 per compensare errori partitore, /100 per risoluzione 0.1V
@@ -1236,8 +1237,8 @@ void saveCountersInFRAM(void) {
 //  Serial.println(read_FRAM_long24(write_pointer-3));
   Serial.print(temp32); Serial.print(' ');
 
-  //printVbias()
-  printVbias_Vthr()
+  //printVbias();
+  printVbias_Vthr();
   Serial.println();
 }
 
