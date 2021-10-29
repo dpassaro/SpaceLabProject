@@ -25,3 +25,16 @@ AND2 = 1-3-7
 
 - Cambio di alcune mattonelle -> quelle in uso attualmente sono la 0, 2B, 2, 7 collegate ai pin 3, 0, 1, 2.
 - La mattonella 1 è da Morsani per sostituzione connettore difettoso (non conta e non è detto che il problema sia nel connettore).
+
+####### Sessione di laboratorio del 29/10/2021 ######
+
+Test in esterna (temperatura esterna da sensore della MM e quella interna dal sensore della Data-logger)
+
+Pin 0 -> Mattonella 0 (vert.)
+Pin 1 -> Mattonella 2B (oriz.)
+Pin 2 -> Mattonella 2 (vert.)
+Pin 3 -> Mattonella 7 (oriz.)
+
+AND 0 -> And orizzontale 0 - 2
+AND 1 -> And verticale 2B - 7
+AND 3 -> And Obliquo 7 - 2
