@@ -1,0 +1,1 @@
+I file di dati della piattaforma sono tipicamente troppo pesanti per essere aggiunti nel repository. Per tutti i dati, andare sul drive del progetto.

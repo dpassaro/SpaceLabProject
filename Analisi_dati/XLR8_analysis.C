@@ -71,18 +71,20 @@ void analysis(char* fileName, int seconds=10){
     auto *gr_and1 = new TGraphErrors();
     auto *gr_and2 = new TGraphErrors();
 
-    double time;
+    double time, time_save;
     //loop on events
     for(int ev=0; ev<=n*10/seconds; ++ev){//*10/seconds
         //read the current event
         t->GetEntry(ev*seconds/10);
 
         if(ev==0) first_timestamp = Timestamp;
-        else if (ev==n) { last_timestamp = Timestamp; aquisition_time = last_timestamp-first_timestamp;}
+        else if (ev==n*10/seconds) { last_timestamp = Timestamp; aquisition_time = last_timestamp-first_timestamp;}
             //
         if(ev%1000==0)   cout<< "Event #"<< ev*seconds/10<< endl;
 
         time = (Timestamp-first_timestamp) / 3600.;
+        if(time>=0){ time_save = time; }
+        else {time = time_save +Timestamp/3600;}
         //fill the Graph
         gr0->SetPoint(ev, time, IN0-cont0);
         //gr0->SetPointError(ev, 0, sqrt(IN0-cont0));
@@ -142,26 +144,22 @@ void analysis(char* fileName, int seconds=10){
         cont_and0 = AND0;
         cont_and1 = AND1;
         cont_and2 = AND2;
-
-        //calculate the rates
-        if(ev>=n){
-            cout<<"Rate IN0: "<< double(cont0/aquisition_time) <<" Hz\n";
-            cout<<"Rate IN1: "<< double(cont1/aquisition_time) <<" Hz\n";
-            cout<<"Rate IN2: "<< double(cont2/aquisition_time) <<" Hz\n";
-            cout<<"Rate IN3: "<< double(cont3/aquisition_time) <<" Hz\n";
-            cout<<"Rate IN4: "<< double(cont4/aquisition_time) <<" Hz\n";
-            cout<<"Rate IN5: "<< double(cont5/aquisition_time) <<" Hz\n";
-            cout<<"Rate IN6: "<< double(cont6/aquisition_time) <<" Hz\n";
-            cout<<"Rate IN7: "<< double(cont7/aquisition_time) <<" Hz\n";
-            cout<<"Rate AND0: "<< double(cont_and0/aquisition_time) <<" Hz\n";
-            cout<<"Rate AND1: "<< double(cont_and1/aquisition_time) <<" Hz\n";
-            cout<<"Rate AND2: "<< double(cont_and2/aquisition_time) <<" Hz\n";
-            }
-
     }
+        //calculate the rates
+    cout<<"Rate IN0: "<< double(cont0/aquisition_time) <<" Hz\n";
+    cout<<"Rate IN1: "<< double(cont1/aquisition_time) <<" Hz\n";
+    cout<<"Rate IN2: "<< double(cont2/aquisition_time) <<" Hz\n";
+    cout<<"Rate IN3: "<< double(cont3/aquisition_time) <<" Hz\n";
+    cout<<"Rate IN4: "<< double(cont4/aquisition_time) <<" Hz\n";
+    cout<<"Rate IN5: "<< double(cont5/aquisition_time) <<" Hz\n";
+    cout<<"Rate IN6: "<< double(cont6/aquisition_time) <<" Hz\n";
+    cout<<"Rate IN7: "<< double(cont7/aquisition_time) <<" Hz\n";
+    cout<<"Rate AND0: "<< double(cont_and0/aquisition_time) <<" Hz\n";
+    cout<<"Rate AND1: "<< double(cont_and1/aquisition_time) <<" Hz\n";
+    cout<<"Rate AND2: "<< double(cont_and2/aquisition_time) <<" Hz\n";
 
     //Crates the frame for the plot
-    auto canvas = new TCanvas("canvas","",1000,800);
+    auto canvas = new TCanvas("canvas_XLR8","",1000,800);
     canvas->Divide(2,2);
     canvas->cd(1);
     //Bellurie for the plot
@@ -299,12 +297,12 @@ void analysis(char* fileName, int seconds=10){
     gPad->SetGrid();
 
     canvas->cd(4);
+    h_AND0->SetFillColor(kRed); h_AND0->SetFillStyle(3002);
+    h_AND0->Draw();
     h_AND1->SetFillColor(kBlue); h_AND1->SetFillStyle(3002);
-    h_AND1->Draw();
+    h_AND1->Draw("same");
     h_AND2->SetFillColor(kGreen+2); h_AND2->SetFillStyle(3002);
     h_AND2->Draw("same");
-    h_AND0->SetFillColor(kRed); h_AND0->SetFillStyle(3002);
-    h_AND0->Draw("same");
     TLegend* legend_double_hist = new TLegend(0.8,0.7,0.9,0.9);
     legend_double_hist->AddEntry(h_AND0,"AND0");legend_double_hist->AddEntry(h_AND1,"AND1");legend_double_hist->AddEntry(h_AND2,"AND2");
     legend_double_hist->Draw();
@@ -390,6 +388,7 @@ void analysis_voltages(char* fileName, int seconds=10){
     auto *gr_V_thr1 = new TGraphErrors();
     auto *gr_V_thr2 = new TGraphErrors();
 
+    double time, time_save;
     //loop on events
     for(int ev=0; ev<=n*10/seconds; ++ev){//*10/seconds
         //read the current event
@@ -397,7 +396,9 @@ void analysis_voltages(char* fileName, int seconds=10){
 
         if(ev==0) first_timestamp = Timestamp;
         if(ev%1000==0)   cout<< "Event #"<< ev*seconds/10<< endl;
-
+        time = (Timestamp-first_timestamp) / 3600.;
+        if(time>=0){ time_save = time; }
+        else {time = time_save +Timestamp/3600;}
         //fill the Graph
         gr0->Fill( V_bias, IN0-cont0);
 
@@ -421,9 +422,9 @@ void analysis_voltages(char* fileName, int seconds=10){
 
         gr_and2->Fill( V_bias, AND2-cont_and2);
 
-        gr_Vbias->SetPoint(ev, (Timestamp-first_timestamp)/3600. , V_bias);
-        gr_V_thr1->SetPoint(ev, (Timestamp-first_timestamp)/3600. , -V_thr1/10); // porto in scala comune
-        gr_V_thr2->SetPoint(ev, (Timestamp-first_timestamp)/3600. , -V_thr2/10); // porto in scala comune
+        gr_Vbias->SetPoint(ev, time , V_bias);
+        gr_V_thr1->SetPoint(ev, time , -V_thr1/10); // porto in scala comune
+        gr_V_thr2->SetPoint(ev, time , -V_thr2/10); // porto in scala comune
 
         if(IN7<cont7) cout<<"Event number: "<<ev*seconds/10<<endl;
 
@@ -443,7 +444,7 @@ void analysis_voltages(char* fileName, int seconds=10){
     }
 
     //Crates the frame for the plot
-    auto canvas1_1 = new TCanvas("canvas1","",1400,600);
+    auto canvas1_1 = new TCanvas("canvas1_XLR8","",1400,600);
     canvas1_1->Divide(4,3);
     canvas1_1->cd(1);
     gr0->Draw("zcolor");
@@ -513,7 +514,7 @@ void analysis_voltages(char* fileName, int seconds=10){
 
     canvas1_1->DrawClone();
 
-    auto canvas1_2 = new TCanvas("canvas1","",800,600);
+    auto canvas1_2 = new TCanvas("canvas2_XLR8","",800,600);
     canvas1_2->cd();
 
     gr_Vbias->SetTitle("V_bias");
@@ -540,10 +541,10 @@ void analysis_voltages(char* fileName, int seconds=10){
 
     auto mg_voltages = new TMultiGraph("mg_voltages","mg_voltages");
     mg_voltages->Add(gr_Vbias, "PL");
-     // per la presa dati del 27/10/2021
+    // /* // per la presa dati del 27/10/2021
     mg_voltages->Add(gr_V_thr1, "PL");
     mg_voltages->Add(gr_V_thr2, "PL");
-     // per la presa dati del 27/10/2021
+    // /* // per la presa dati del 27/10/2021
     mg_voltages->Draw("APL");
     mg_voltages->SetTitle("Tensioni di lavoro; Time[h]; Tensione [V]");
 
