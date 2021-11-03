@@ -32,7 +32,7 @@ void imu_analysis(char* fileName){
     auto *graph_kalmanY = new TGraph();
 
     double first_timestamp = 0.;
-    double time = 0;
+    double time, time_save;
 
 
     //loop on events
@@ -40,9 +40,11 @@ void imu_analysis(char* fileName){
         //read the current event
         t->GetEntry(ev);
         if(ev==0) first_timestamp = Timestamp;
-        if(ev%1000==0)   cout<< "Event #"<< ev << endl;
+        if(ev%100000==0)   cout<< "Event #"<< ev << endl;
 
         time = (Timestamp-first_timestamp) / 3600.;
+        if(time>=0){ time_save = time; }
+        else {time = time_save +Timestamp/3600;}
         //fill the Graph
         graph_kalmanX->SetPoint(ev, time , kalmanX );
         graph_Heading->SetPoint(ev, time , Heading );
@@ -64,7 +66,7 @@ void imu_analysis(char* fileName){
     graph_kalmanX->SetLineColor(kRed);
     graph_kalmanX->SetMarkerSize(0.5);
     graph_kalmanX->SetTitle("Angolo X (Pitch); Time[h]; Degrees");
-    graph_kalmanX->SetMaximum(1.);  graph_kalmanX->SetMinimum(0.);
+    //graph_kalmanX->SetMaximum(1.);  graph_kalmanX->SetMinimum(0.);
     graph_kalmanX->Draw("AL");
     gPad->BuildLegend();
     gPad->SetGrid();
@@ -76,7 +78,7 @@ void imu_analysis(char* fileName){
     graph_kalmanY->SetLineColor(kRed);
     graph_kalmanY->SetMarkerSize(0.5);
     graph_kalmanY->SetTitle("Angolo Y (Roll); Time[h]; Degrees");
-    graph_kalmanY->SetMaximum(1.);  graph_kalmanY->SetMinimum(0.);
+    //graph_kalmanY->SetMaximum(1.);  graph_kalmanY->SetMinimum(0.);
     graph_kalmanY->Draw("AL");
     gPad->BuildLegend();
     gPad->SetGrid();
@@ -88,7 +90,7 @@ void imu_analysis(char* fileName){
     graph_Heading->SetLineColor(kRed);
     graph_Heading->SetMarkerSize(0.5);
     graph_Heading->SetTitle("Angolo heading (Nord magnetico); Time[h]; Degrees");
-    graph_Heading->SetMaximum(90.); graph_Heading->SetMinimum(70);
+    //graph_Heading->SetMaximum(90.); graph_Heading->SetMinimum(70);
     graph_Heading->Draw("AL");
     gPad->BuildLegend();
     gPad->SetGrid();
@@ -101,7 +103,7 @@ void imu_analysis(char* fileName){
     graph_tiltCompensatedHeading->SetLineColor(kRed);
     graph_tiltCompensatedHeading->SetMarkerSize(0.5);
     graph_tiltCompensatedHeading->SetTitle("Angolo heading (Nord magnetico) compensato; Time[h]; Degrees");
-    graph_tiltCompensatedHeading->SetMaximum(90.); graph_tiltCompensatedHeading->SetMinimum(70);
+    //graph_tiltCompensatedHeading->SetMaximum(90.); graph_tiltCompensatedHeading->SetMinimum(70);
     graph_tiltCompensatedHeading->Draw("AL");
     gPad->SetGrid();
     gPad->BuildLegend();

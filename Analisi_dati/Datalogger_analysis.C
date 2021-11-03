@@ -1,4 +1,7 @@
-void correlation_analysis(char* fileName_datalogger, char* fileName_xlr8, int seconds=10){
+void correlation_analysis(char* fileName_datalogger, char* fileName_xlr8, int seconds = 1){
+//******************************************************************************************
+// Assicurarsi che i file siano sincronizzati !!!
+//******************************************************************************************
 
     /*for(int i=0; i<6; i++){
       if(fileName_datalogger[i+]!=fileName_xlr8[i]){
@@ -41,7 +44,7 @@ void correlation_analysis(char* fileName_datalogger, char* fileName_xlr8, int se
 
 
     double Timestamp_dl;
-    char Up_Time, UTC, Date, RMC_Valid, Sats_in_use, Latitude, Longitude, SoG,Sog,CoG,Altitude;
+    double Up_Time, UTC, Date, RMC_Valid, Sats_in_use, Latitude, Longitude, SoG,Sog,CoG,Altitude; // produce un errore, ma è l'unico modo per leggere il timestamp
     double BoardTemp,ExtTemp,Humidity,Pressure,Battery_Voltage;
     int Logger_status;
 
@@ -68,66 +71,114 @@ void correlation_analysis(char* fileName_datalogger, char* fileName_xlr8, int se
     //Altitude NN [m];Board Temp[°C];External Temp[°C];Humidity[%];Pressure[hPa];Battery Voltage[V];Logger status
     //Get the number of entries in the TTree
     int n = t->GetEntries();
+    int k = dl->GetEntries();
 
     //define other convenient variables and counters
     double first_timestamp = 0.;
-    double last_timestamp = 0.;
-    double aquisition_time = 0.;
     int cont0 = 0;
     int cont1 = 0;
     int cont2 = 0;
     int cont6 = 0;
     int cont7 = 0;
 
+    int const BINS_TEMP=27; int const  TEMP_LOW=18; int const TEMP_HIGH=24;
+    int const BINS_PRES=27; int const PRES_LOW=1015; int const PRES_HIGH=1030;
+    int const BINS_HUM=27; int const HUM_LOW=27; int const HUM_HIGH=36;
+    int const BINS_CONT=35; int const CONT_LOW=0; int const CONT_HIGH=90;
     //Crates the Graph for the plot
-    auto *gr0_temp = new TGraphErrors();
-    auto *gr1_temp = new TGraphErrors();
-    auto *gr2_temp = new TGraphErrors();
-    auto *gr6_temp = new TGraphErrors();
-    auto *gr7_temp = new TGraphErrors();
-    auto *gr0_pres = new TGraphErrors();
-    auto *gr1_pres = new TGraphErrors();
-    auto *gr2_pres = new TGraphErrors();
-    auto *gr6_pres = new TGraphErrors();
-    auto *gr7_pres = new TGraphErrors();
-    auto *gr0_hum = new TGraphErrors();
-    auto *gr1_hum = new TGraphErrors();
-    auto *gr2_hum = new TGraphErrors();
-    auto *gr6_hum = new TGraphErrors();
-    auto *gr7_hum = new TGraphErrors();
+    auto *gr0_temp = new TH2D("","IN0; Temperatura [#circC]; Conteggi", BINS_TEMP, TEMP_LOW,TEMP_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr1_temp = new TH2D("","Correlazione IN1/Temp; Temperatura [#circC]; Conteggi", BINS_TEMP, TEMP_LOW,TEMP_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr2_temp = new TH2D("","IN2; Temperatura [#circC]; Conteggi", BINS_TEMP, TEMP_LOW,TEMP_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr6_temp = new TH2D("","IN6; Temperatura [#circC]; Conteggi", BINS_TEMP, TEMP_LOW,TEMP_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr7_temp = new TH2D("","IN7; Temperatura [#circC]; Conteggi", BINS_TEMP, TEMP_LOW,TEMP_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr0_pres = new TH2D("","IN0; Pressione [mbar]; Conteggi", BINS_PRES, PRES_LOW,PRES_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr1_pres = new TH2D("","Correlazione IN1/Pres; Pressione [mbar]; Conteggi", BINS_PRES, PRES_LOW,PRES_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr2_pres = new TH2D("","IN2; Pressione [mbar]; Conteggi", BINS_PRES, PRES_LOW,PRES_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr6_pres = new TH2D("","IN6; Pressione [mbar]; Conteggi", BINS_PRES, PRES_LOW,PRES_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr7_pres = new TH2D("","IN7; Pressione [mbar]; Conteggi", BINS_PRES, PRES_LOW,PRES_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr0_hum = new TH2D("","IN0; Umidita' [%]; Conteggi", BINS_HUM, HUM_LOW, HUM_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr1_hum = new TH2D("","Correlazione IN1/Hum; Umidita' [%]; Conteggi", BINS_HUM, HUM_LOW, HUM_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr2_hum = new TH2D("","IN2; Umidita' [%]; Conteggi", BINS_HUM, HUM_LOW, HUM_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr6_hum = new TH2D("","IN3; Umidita' [%]; Conteggi", BINS_HUM, HUM_LOW, HUM_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
+    auto *gr7_hum = new TH2D("","IN4; Umidita' [%]; Conteggi", BINS_HUM, HUM_LOW, HUM_HIGH, BINS_CONT, CONT_LOW, CONT_HIGH );
 
     //loop on events
-    for(int ev=0; ev<=n*10/seconds; ++ev){// *10/seconds
+    int ev_dl = 0;
+    int ev = 0; int ev_save = 0;
+    bool flag=false;
+    for(ev; ev<=n/seconds*1.; ++ev){// *10/seconds
         //read the current event
-        t->GetEntry(ev*seconds/10);
-        dl->GetEntry(ev*seconds/2);
+        t->GetEntry(ev*seconds);
+        if(ev==0) first_timestamp = Timestamp;
+        //-------- Sincronizza gli eventi ------------//
+        for(ev_dl; ev_dl<k; ev_dl++){
+          dl->GetEntry(ev_dl);
+          //if(Timestamp_dl<first_timestamp && ev_dl>10) Timestamp_dl += first_timestamp;
+          //if(Timestamp<first_timestamp) Timestamp += first_timestamp;
+
+          if(std::abs(Timestamp_dl-Timestamp)<=1.5){
+            break;
+          }
+
+          else if(Timestamp_dl>Timestamp && std::abs(Timestamp_dl-Timestamp)>1.5){
+            ev_dl++;
+            dl->GetEntry(ev_dl);
+            //if(Timestamp_dl<first_timestamp) Timestamp_dl += first_timestamp;
+            if(std::abs(Timestamp_dl-Timestamp)<=1.5) {
+              break;}
+            //debug
+            //cout<<ev_dl<<endl;
+            ev_save = ev*seconds;
+            ev++;
+            for(ev_save; ev_save<=n; ev_save++,ev++){
+              //debug
+              cout<<"ev_dl="<<Timestamp_dl<<"\t"<<"ev="<<Timestamp<<endl;//-first_timestamp
+              t->GetEntry(ev_save);
+              //if(Timestamp<first_timestamp) Timestamp += first_timestamp;
+
+              if(std::abs(Timestamp_dl-Timestamp)<=1.5){
+                flag = true;
+                break;
+              }
+            }
+            if(flag){
+              break;
+            }
+            flag=false;
+          }
+
+          else if(Timestamp_dl<Timestamp && std::abs(Timestamp_dl-Timestamp)>1.2){
+            continue;
+          }
+
+        }
+        //-------------------------------------------//
             //
-        if(ev%1000==0)   cout<< "XLR8: Event "<< ev*seconds/10<< "\t IN0 " <<IN0<< endl;
-        if(ev%1000==0)   cout<< "datalogger: Event "<< ev*seconds/2 <<"\t Temp "<< ExtTemp <<endl;
+        if(ev%1000==0)   cout<< "XLR8: Timestamp         "<< Timestamp-first_timestamp<< "\t"<<ev<<endl;
+        if(ev%1000==0)   cout<< "datalogger: Timestamp   "<< Timestamp_dl-first_timestamp<<"\t"<<ev_dl<<endl<<endl;
 
         //fill the Graph
-        gr0_temp->SetPoint(ev, ExtTemp, IN0-cont0);
-        gr0_pres->SetPoint(ev, Pressure, IN0-cont0);
-        gr0_hum->SetPoint(ev, Humidity, IN0-cont0);
+        gr0_temp->Fill(ExtTemp, IN0-cont0);
+        gr0_pres->Fill(Pressure, IN0-cont0);
+        gr0_hum->Fill(Humidity, IN0-cont0);
 
-        gr1_temp->SetPoint(ev, ExtTemp, IN1-cont1);
-        gr1_pres->SetPoint(ev, Pressure, IN1-cont1);
-        gr1_hum->SetPoint(ev, Humidity, IN1-cont1);
+        gr1_temp->Fill(ExtTemp, IN1-cont1);
+        gr1_pres->Fill(Pressure, IN1-cont1);
+        gr1_hum->Fill(Humidity, IN1-cont1);
 
-        gr2_temp->SetPoint(ev, ExtTemp, IN2-cont2);
-        gr2_pres->SetPoint(ev, Pressure, IN2-cont2);
-        gr2_hum->SetPoint(ev, Humidity, IN2-cont2);
+        gr2_temp->Fill(ExtTemp, IN2-cont2);
+        gr2_pres->Fill(Pressure, IN2-cont2);
+        gr2_hum->Fill(Humidity, IN2-cont2);
 
-        gr6_temp->SetPoint(ev, ExtTemp, IN6-cont6);
-        gr6_pres->SetPoint(ev, Pressure, IN6-cont6);
-        gr6_hum->SetPoint(ev, Humidity, IN6-cont6);
+        gr6_temp->Fill(ExtTemp, IN6-cont6);
+        gr6_pres->Fill(Pressure, IN6-cont6);
+        gr6_hum->Fill(Humidity, IN6-cont6);
 
-        gr7_temp->SetPoint(ev, ExtTemp, IN7-cont7);
-        gr7_pres->SetPoint(ev, Pressure, IN7-cont7);
-        gr7_hum->SetPoint(ev, Humidity, IN7-cont7);
+        gr7_temp->Fill(ExtTemp, IN7-cont7);
+        gr7_pres->Fill(Pressure, IN7-cont7);
+        gr7_hum->Fill(Humidity, IN7-cont7);
 
-
-        if(IN7<cont7) cout<<"Event number: "<<ev*seconds/10<<endl;
+        if(IN7<cont7) cout<<"Event number: "<<ev<<endl;
         //update counters
         cont0 = IN0;
         cont1 = IN1;
@@ -135,104 +186,32 @@ void correlation_analysis(char* fileName_datalogger, char* fileName_xlr8, int se
         cont6 = IN6;
         cont7 = IN7;
 
-
     }
 
     //Crates the frame for the plot
-    auto canvas = new TCanvas("canvas_corr_DL","",1000,800);
+    auto canvas = new TCanvas("canvas_corr_DL","",1300,500);
     canvas->Divide(3,1);
     canvas->cd(1);
+    // cambiare il numero dei gra*_temp ecc per vedere gli altri contatori
     //Bellurie for the plot
-    gr0_temp->SetTitle("IN0"); gr0_temp->SetMarkerStyle(8); gr0_temp->SetMarkerColor(kRed);
-    gr0_temp->SetLineColor(kRed); gr0_temp->SetMarkerSize(2);
-
-    gr1_temp->SetTitle("IN1"); gr1_temp->SetMarkerStyle(8); gr1_temp->SetMarkerColor(kBlue);
-    gr1_temp->SetLineColor(kBlue); gr1_temp->SetMarkerSize(2);
-
-    gr2_temp->SetTitle("IN2"); gr2_temp->SetMarkerStyle(8); gr2_temp->SetMarkerColor(kBlack);
-    gr2_temp->SetLineColor(kBlack); gr2_temp->SetMarkerSize(2);
-
-    gr6_temp->SetTitle("IN6"); gr6_temp->SetMarkerStyle(8); gr6_temp->SetMarkerColor(kOrange);
-    gr6_temp->SetLineColor(kOrange); gr6_temp->SetMarkerSize(2);
-
-    gr7_temp->SetTitle("IN7"); gr7_temp->SetMarkerStyle(8); gr7_temp->SetMarkerColor(kGreen+2);
-    gr7_temp->SetLineColor(kGreen+2); gr7_temp->SetMarkerSize(2);
-
-    auto mg_temp = new TMultiGraph("mg_temp","mg_temp");
-    //mg_temp->Add(gr0_temp, "PL");
-    mg_temp->Add(gr1_temp, "P");
-    //mg_temp->Add(gr2_temp, "PL");
-    //mg_temp->Add(gr6_temp, "PL");
-    //mg_temp->Add(gr7_temp, "PL");
-    mg_temp->Draw("AP");
-
-    const char* Line0 = "Correlazione rate/temp; Temperatura [#circC]; Counts/60s";
-    mg_temp->SetTitle(Line0);//"Single rate; Time[s]; Counts/10s"
-    mg_temp->SetMinimum(0);//mg->SetMaximum(80);
-    gPad->BuildLegend();
+    gr1_temp->Draw("zcolor");
+    gStyle->SetOptStat("e");
     gPad->SetGrid();
+    //gPad->BuildLegend();
 
     canvas->cd(2);
     //Bellurie for the plot
-    gr0_pres->SetTitle("IN0"); gr0_pres->SetMarkerStyle(8); gr0_pres->SetMarkerColor(kRed);
-    gr0_pres->SetLineColor(kRed); gr0_pres->SetMarkerSize(2);
-
-    gr1_pres->SetTitle("IN1"); gr1_pres->SetMarkerStyle(8); gr1_pres->SetMarkerColor(kBlue);
-    gr1_pres->SetLineColor(kBlue); gr1_pres->SetMarkerSize(2);
-
-    gr2_pres->SetTitle("IN2"); gr2_pres->SetMarkerStyle(8); gr2_pres->SetMarkerColor(kBlack);
-    gr2_pres->SetLineColor(kBlack); gr2_pres->SetMarkerSize(2);
-
-    gr6_pres->SetTitle("IN6"); gr6_pres->SetMarkerStyle(8); gr6_pres->SetMarkerColor(kOrange);
-    gr6_pres->SetLineColor(kOrange); gr6_pres->SetMarkerSize(2);
-
-    gr7_pres->SetTitle("IN7"); gr7_pres->SetMarkerStyle(8); gr7_pres->SetMarkerColor(kGreen+2);
-    gr7_pres->SetLineColor(kGreen+2); gr7_pres->SetMarkerSize(2);
-
-    auto mg_pres = new TMultiGraph("mg_pres","mg_pres");
-    //mg_pres->Add(gr0_pres, "PL");
-    mg_pres->Add(gr1_pres, "P");
-    //mg_pres->Add(gr2_pres, "PL");
-    //mg_pres->Add(gr6_pres, "PL");
-    //mg_pres->Add(gr7_pres, "PL");
-    mg_pres->Draw("AP");
-
-    const char* Line1 = "Correlazione rate/pres; Pressione [mbar]; Counts/60s";
-    mg_pres->SetTitle(Line1);//"Single rate; Time[s]; Counts/10s"
-    mg_pres->SetMinimum(0);//mg->SetMaximum(80);
-    gPad->BuildLegend();
+    gr1_pres->Draw("zcolor");
+    gStyle->SetOptStat("e");
     gPad->SetGrid();
+    //gPad->BuildLegend();
 
     canvas->cd(3);
     //Bellurie for the plot
-    gr0_hum->SetTitle("IN0"); gr0_hum->SetMarkerStyle(8); gr0_hum->SetMarkerColor(kRed);
-    gr0_hum->SetLineColor(kRed); gr0_hum->SetMarkerSize(2);
-
-    gr1_hum->SetTitle("IN1"); gr1_hum->SetMarkerStyle(8); gr1_hum->SetMarkerColor(kBlue);
-    gr1_hum->SetLineColor(kBlue); gr1_hum->SetMarkerSize(2);
-
-    gr2_hum->SetTitle("IN2"); gr2_hum->SetMarkerStyle(8); gr2_hum->SetMarkerColor(kBlack);
-    gr2_hum->SetLineColor(kBlack); gr2_hum->SetMarkerSize(2);
-
-    gr6_hum->SetTitle("IN6"); gr6_hum->SetMarkerStyle(8); gr6_hum->SetMarkerColor(kOrange);
-    gr6_hum->SetLineColor(kOrange); gr6_hum->SetMarkerSize(2);
-
-    gr7_hum->SetTitle("IN7"); gr7_hum->SetMarkerStyle(8); gr7_hum->SetMarkerColor(kGreen+2);
-    gr7_hum->SetLineColor(kGreen+2); gr7_hum->SetMarkerSize(2);
-
-    auto mg_hum = new TMultiGraph("mg_hum","mg_hum");
-    //mg_hum->Add(gr0_hum, "PL");
-    mg_hum->Add(gr1_hum, "P");
-    //mg_hum->Add(gr2_hum, "PL");
-    //mg_hum->Add(gr6_hum, "PL");
-    //mg_hum->Add(gr7_hum, "PL");
-    mg_hum->Draw("AP");
-
-    const char* Line2 = "Correlazione rate/hum; Umidita' [%]; Counts/60s";
-    mg_hum->SetTitle(Line2);//"Single rate; Time[s]; Counts/10s"
-    mg_hum->SetMinimum(0);//mg->SetMaximum(80);
-    gPad->BuildLegend();
+    gr1_hum->Draw("zcolor");
+    gStyle->SetOptStat("e");
     gPad->SetGrid();
+    //gPad->BuildLegend();
 
 }
 

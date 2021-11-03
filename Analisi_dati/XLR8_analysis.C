@@ -36,9 +36,9 @@ void analysis(char* fileName, int seconds=10){
     t->SetBranchAddress("AND0", &AND0);
     t->SetBranchAddress("AND1", &AND1);
     t->SetBranchAddress("AND2", &AND2);
-    t->SetBranchAddress("V_BIAS", &V_bias);
+    /*t->SetBranchAddress("V_BIAS", &V_bias);
     t->SetBranchAddress("V_THR1", &V_thr1);
-    t->SetBranchAddress("V_THR2", &V_thr2);
+    t->SetBranchAddress("V_THR2", &V_thr2);*/
     //Get the number of entries in the TTree
     int n = t->GetEntries();
 
