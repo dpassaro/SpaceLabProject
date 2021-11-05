@@ -365,12 +365,12 @@ void analysis_voltages(char* fileName, int seconds=10){
     int cont_and1 = 0;
     int cont_and2 = 0;
 
-    int const UP_CONT = 50;
-    int const LOW_CONT = 0;
+    double const UP_CONT = 170;
+    double const LOW_CONT = 0;
     int const BINS_CONT = 50;
-    int const UP_VBIAS = 33;
-    int const LOW_VBIAS = 30;
-    int const BINS_VBIAS = 35;
+    double const UP_VBIAS = 31.5;
+    double const LOW_VBIAS = 30;
+    int const BINS_VBIAS = 16;
 
     //Crates the Graph for the plot
     auto *gr0 = new TH2F("", "IN0; V_bias [V]; Conteggi ", BINS_VBIAS, LOW_VBIAS, UP_VBIAS, BINS_CONT, LOW_CONT , UP_CONT);
@@ -387,6 +387,9 @@ void analysis_voltages(char* fileName, int seconds=10){
     auto *gr_Vbias = new TGraphErrors();
     auto *gr_V_thr1 = new TGraphErrors();
     auto *gr_V_thr2 = new TGraphErrors();
+    auto *h_Vbias = new TH1D("", "Distribuzione Vbias ;V_bias [V]; Conteggi", BINS_VBIAS, LOW_VBIAS, UP_VBIAS);
+    auto *h_V_thr1 = new TH1D("", "Distribuzione V_thr1 ;V_thr1 [V]; Conteggi", BINS_VBIAS, -170, -130);
+    auto *h_V_thr2 = new TH1D("", "Distribuzione V_thr2 ;V_thr2 [V]; Conteggi", BINS_VBIAS, -180, -140);
 
     double time, time_save;
     //loop on events
@@ -423,8 +426,12 @@ void analysis_voltages(char* fileName, int seconds=10){
         gr_and2->Fill( V_bias, AND2-cont_and2);
 
         gr_Vbias->SetPoint(ev, time , V_bias);
-        gr_V_thr1->SetPoint(ev, time , -V_thr1/10); // porto in scala comune
-        gr_V_thr2->SetPoint(ev, time , -V_thr2/10); // porto in scala comune
+        gr_V_thr1->SetPoint(ev, time , V_thr1);
+        gr_V_thr2->SetPoint(ev, time , V_thr2);
+
+        h_Vbias->Fill(V_bias);
+        h_V_thr1->Fill(V_thr1);
+        h_V_thr2->Fill(V_thr2);
 
         if(IN7<cont7) cout<<"Event number: "<<ev*seconds/10<<endl;
 
@@ -512,43 +519,81 @@ void analysis_voltages(char* fileName, int seconds=10){
     gPad->SetGrid();
     gPad->BuildLegend();
 
-    canvas1_1->DrawClone();
+    //canvas1_1->DrawClone();
 
     auto canvas1_2 = new TCanvas("canvas2_XLR8","",800,600);
     canvas1_2->cd();
+    TPad *pad1 = new TPad("Tensione/Tempo","",0.01,0.02,0.70,0.97);
+    TPad *pad2 = new TPad("Distribuzioni in tensione","",0.63,0.02,0.98,0.97);
+    pad1->Draw();pad2->Draw();
 
+    pad1->cd();//->Draw();
+    TPad *pad11 = new TPad("Vbias","",0.05,0.67,0.95,0.97);
+    TPad *pad12 = new TPad("V_thr1","",0.05,0.34,0.95,0.64);
+    TPad *pad13 = new TPad("V_thr2","",0.05,0.01,0.95,0.31);
+    pad11->Draw();pad12->Draw();pad13->Draw();
+
+    pad11->cd();
     gr_Vbias->SetTitle("V_bias");
     gr_Vbias->SetMarkerStyle(8);
     gr_Vbias->SetMarkerColor(kRed);
     gr_Vbias->SetLineColor(kRed);
     gr_Vbias->SetMarkerSize(0.5);
     gr_Vbias->SetTitle("V_bias; Time[h]; V_bias/60s [V]");
+    gr_Vbias->Draw("APL");
+    gPad->SetGrid();
      // per la presa dati del 27/10/2021
-    gr_V_thr1->SetTitle("V_thr1 * 100");
+
+    pad12->cd();
+    gr_V_thr1->SetTitle("V_thr1");
     gr_V_thr1->SetMarkerStyle(8);
     gr_V_thr1->SetMarkerColor(kBlue);
     gr_V_thr1->SetLineColor(kBlue);
     gr_V_thr1->SetMarkerSize(0.5);
-    gr_V_thr1->SetTitle("-V_thr1/10; Time[h]; V_thr1/60s [mV]");
+    gr_V_thr1->SetTitle("V_thr1; Time[h]; V_thr1/60s [mV]");
+    gr_V_thr1->Draw("APL");
+    gPad->SetGrid();
 
-    gr_V_thr2->SetTitle("V_thr2 * 100");
+    pad13->cd();
+    gr_V_thr2->SetTitle("V_thr2");
     gr_V_thr2->SetMarkerStyle(8);
     gr_V_thr2->SetMarkerColor(kGreen);
     gr_V_thr2->SetLineColor(kGreen);
     gr_V_thr2->SetMarkerSize(0.5);
-    gr_V_thr2->SetTitle("-V_thr2/10; Time[h]; V_thr2/60s [mV]");
+    gr_V_thr2->SetTitle("V_thr2; Time[h]; V_thr2/60s [mV]");
+    gr_V_thr2->Draw("APL");
+    gPad->SetGrid();
      // per la presa dati del 27/10/2021
 
-    auto mg_voltages = new TMultiGraph("mg_voltages","mg_voltages");
+    /*auto mg_voltages = new TMultiGraph("mg_voltages","mg_voltages");
     mg_voltages->Add(gr_Vbias, "PL");
-    // /* // per la presa dati del 27/10/2021
+    //  // per la presa dati del 27/10/2021
     mg_voltages->Add(gr_V_thr1, "PL");
     mg_voltages->Add(gr_V_thr2, "PL");
-    // /* // per la presa dati del 27/10/2021
+    //  // per la presa dati del 27/10/2021
     mg_voltages->Draw("APL");
-    mg_voltages->SetTitle("Tensioni di lavoro; Time[h]; Tensione [V]");
+    mg_voltages->SetTitle("Tensioni di lavoro; Time[h]; Tensione [V]");*/
 
-    gPad->BuildLegend();
+
+    pad2->cd();
+    TPad *pad21 = new TPad("Vbias","",0.05,0.67,0.95,0.97);
+    TPad *pad22 = new TPad("V_thr1","",0.05,0.34,0.95,0.64);
+    TPad *pad23 = new TPad("V_thr2","",0.05,0.01,0.95,0.31);
+    pad21->Draw(); pad22->Draw(); pad23->Draw();
+
+    pad21->cd();
+    h_Vbias->Draw("HIST");
+    h_Vbias->SetLineColor(kRed+2);h_Vbias->SetFillColor(kRed); h_Vbias->SetFillStyle(3001);
+    gPad->SetGrid();
+
+    pad22->cd();
+    h_V_thr1->Draw("HIST");
+    h_V_thr1->SetLineColor(kBlue+2);h_V_thr1->SetFillColor(kBlue); h_V_thr1->SetFillStyle(3001);
+    gPad->SetGrid();
+
+    pad23->cd();
+    h_V_thr2->Draw("HIST");
+    h_V_thr2->SetLineColor(kGreen+2); h_V_thr2->SetFillColor(kGreen);h_V_thr2->SetFillStyle(3001);
     gPad->SetGrid();
 
 }
