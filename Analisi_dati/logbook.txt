@@ -38,3 +38,10 @@ Pin 3 -> Mattonella 7 (oriz.)
 AND 0 -> And orizzontale 0 - 2
 AND 1 -> And verticale 2B - 7
 AND 3 -> And Obliquo 7 - 2
+
+####### Sessione di laboratorio del 08/11/2021 ######
+
+- E' stato modificato (in locale) lo script di acquisizione dati dei sensori della MM:
+  le prese dati precedenti mostrano un problema nella trasmissione degli stessi che impedisce l'acquisizione in tempo reale delle misure.
+  La modifica dello script eliminando un tempo di sleep fra due letture successive (60 s) è stata testata in lab per verificare la reattività del protocollo.  
+- Modifica della password del raspberry: nuova password: raspberry
