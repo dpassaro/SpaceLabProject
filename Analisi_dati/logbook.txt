@@ -45,3 +45,7 @@ AND 3 -> And Obliquo 7 - 2
   le prese dati precedenti mostrano un problema nella trasmissione degli stessi che impedisce l'acquisizione in tempo reale delle misure.
   La modifica dello script eliminando un tempo di sleep fra due letture successive (60 s) è stata testata in lab per verificare la reattività del protocollo.  
 - Modifica della password del raspberry: nuova password: raspberry
+
+####### Sessione di laboratorio del 09/11/2021 ######
+
+- E' stato verificato che il sistema GPS del datalogger funziona.
