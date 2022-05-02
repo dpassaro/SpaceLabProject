@@ -1,0 +1,94 @@
+\documentclass[10pt, aspectratio=1610]{beamer}
+
+%%%%%%%%%%%%%
+%%  BEAMER %%
+%%%%%%%%%%%%%
+
+\useoutertheme{infolines}
+\usecolortheme{dolphin}
+\usefonttheme{professionalfonts}
+\setbeamertemplate{frametitle}[default][center]
+\beamertemplatenavigationsymbolsempty
+\setbeamerfont{title}{shape=\scshape, size=\Large}
+\setbeamerfont{subtitle}{shape=\scshape, size=\footnotesize}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+%%%%%%%%%%%%%%
+%% PACKAGES %%
+%%%%%%%%%%%%%%
+
+\definecolor{links}{HTML}{3333B3}
+\hypersetup{colorlinks, linkcolor=, urlcolor=links}
+
+\usepackage[italian]{babel}
+
+\usepackage[mono=false]{libertinus}
+\usepackage{libertinust1math} 
+\usepackage{physics}
+\usepackage{amssymb}
+\usepackage{xcolor}
+
+\usepackage{multicol}
+
+\usepackage{booktabs}
+
+\usepackage{epsfig}
+\usepackage{tikz}
+
+\graphicspath{{images/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% TITLE, AUTHORS... %%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+% titolo
+\title{Progetto SpaceLab: MIRACLE}
+% autori & coautori
+\author[Gruppo MIRACLE]{A. Del Vincio \and
+        V. Floris \and 
+        D. Passaro \and
+        M. Riggirello \and
+        N. Torriti \and
+        A. Venturini}
+
+% Istituti
+\institute[unipi]{Università di Pisa: Dipartimento di Fisica
+                    \and Dipartimento di Ingegneria Aerospaziale
+                    \and INFN}
+% Loghi istituzioni
+\titlegraphic{\includegraphics[width=.1\linewidth]{cherubino-black.eps}
+            \quad \includegraphics[width=.1\linewidth]{INFN_logo.eps}}
+% Data
+\date{06 Maggio 2022}
+
+
+%%%%%%%%%%%%%%
+%% DOCUMENT %%
+%%%%%%%%%%%%%%
+
+\begin{document}
+
+% TITLEPAGE
+{
+%%%%%%%%%%%%%%%
+%% BKG IMAGE %%
+%%%%%%%%%%%%%%%
+
+\usebackgroundtemplate
+{\tikz\node[opacity=0.2]%
+{\parbox[c][\paperheight][c]{\paperwidth}{\flushright
+\includegraphics[width=0.35\linewidth]{logo_MIRACLE.pdf}}};}
+
+% text
+\frame{\titlepage}
+}
+
+
+% Introduzione
+\section{Introduzione}
+
+\begin{frame}{Cos'è MIRACLE e da dove nasce}
+    
+\end{frame}
+
+\end{document}
