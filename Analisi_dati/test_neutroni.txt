@@ -1,0 +1,83 @@
+# Esperienza a Ingnegneria Nucleare
+
+Sorgente AmBe di neutroni veloci (1.11 GBq). Moderatore plexiglass.
+Soglia oscilloscopio: -32 mV.
+Forma tipica segnale: 4.8 ns salita, 3.7 µs discesa, 150 mV circa (8 V alimentazione).
+ 
+Profondità sorgente: - 15.5 cm
+Profondità rivelatore: -6.5 cm - posizione cristallo nel rivelatore
+ 
+Test bkg fotoni
+---------------
+Rivelatore dentro il plexiglass. Normalizzazione fotoni di fondo.
+(File XXTableam1000001.txt)
+ 
+Sorgente di Am241 in aria, rivelatore in aria. Distanza d = 10 cm.
+Attività della sorgente: 11.13 µCu ( ~40 kBq)
+(File XXtableam200001.txt)
+ 
+Sorgente di Am241 in aria, rivelatore in aria. Distanza d = 10 cm.
+Attività della sorgente: 
+(File XXtableam300001.txt)
+
+Sorgente di Co60 in aria, rivelatore in aria. Distanza d = 10 cm.
+Attività della sorgente: 433 kBq (1995) 
+(File XXtableco100001.txt)
+Acquisizione forme d'onda di questi fondi (C1Trace0116-175.txt)
+ 
+Test neutroni
+-------------
+Sorgente nel buco a 8 cm
+Alimentazione 8 V
+Rate di eventi = 1403 / 60 s = 23.4 Hz 
+(File XXTable000000.txt)
+
+Sorgente nel buco a 10 cm
+Alimentazione 8 V
+Rate di eventi = 1727 / 60 s = 27.1 Hz
+(File XXTable200000.txt)
+
+Acquisiamo una forma d'onda (C1Trace0015-116.txt)
+
+Sorgente nel buco a 18 cm
+Alimentazione 8 V
+Rate di eventi = 1076 / 60 s = 18 Hz 
+(File XXTable300001.txt)
+
+Sorgente nel buco a 26 cm
+Alimentazione 8 V
+Rate di eventi = 410 / 60 s =  Hz 
+(File XXTable400001.txt)
+
+Sorgente nel buco a 34 cm
+Alimentazione 8 V
+Rate di eventi = 137 / 60 s =  Hz 
+(File XXTable500001.txt)
+Ha problemi di compatibilità fra i rate misurati dai vari istogrammi
+
+Sorgente nel buco a 34 cm
+Alimentazione 8 V
+Rate di eventi = 146 / 60 s =  Hz 
+(File XXTable5b00001.txt)
+
+
+Sorgente nel buco a 42 cm
+Alimentazione 8 V
+Rate di eventi = - / 60 s =  Hz 
+(File XXTable600001.txt)
+
+Sorgente nel buco a 50 cm
+Alimentazione 8 V
+Rate di eventi = 25 / 60 s =  Hz 
+(File XXTable700001.txt)
+
+Rivelatore in superificie, a circa 5 cm dal loculo della sorgente. Serve a normalizzare
+rispetto ad un assorbitore al cadmio (per capire il contributo dei termici)
+Alimentazione 8 V 
+(File XXTablecd1000001.txt)
+
+Rivelatore nella stessa posizione ma schermato da un rivestimento di cadmio
+Alimentazione 8 V 
+(File XXTablecd2000001.txt)
+
+
